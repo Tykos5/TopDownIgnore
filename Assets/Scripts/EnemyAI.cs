@@ -2,92 +2,90 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.Windows.WebCam;
 
 public class EnemyAI : MonoBehaviour
 {
 
     public Transform target;
-    private Animator animator;
+
+    public bool canChase = false;
 
     public float speed = 5f;
-    public float nextWayPointDistance = 3f;
-
-    Path path;
-    int currentWayPoint = 0;
-    bool reachedEndOfPath = false;
-
-    Seeker seeker;
+    
     Rigidbody2D rb;
 
     private Vector2 movement;
 
+    public Vector2 startPos;
+
+
+    public float idleDistance { get; private set; } = 1f;
+    public float attackDistance { get; private set; } = 1.5f;
+
+
+    public Vector2 MoveDirection { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
 
-
-        InvokeRepeating("UpdatePath", 0.2f, 0.5f);
+        startPos = transform.position;
     }
 
-    void UpdatePath()
-    {
-        if (AstarPath.active == null) return;
-        if (target == null) return;
-
-        if (seeker.IsDone())
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
-    }
-    void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWayPoint = 0;
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (path == null) return;
+        Vector2 destination = canChase && target != null ? (Vector2)target.position : startPos;
+        float distanceToDestination = Vector2.Distance(rb.position, destination);
 
-        if (currentWayPoint >= path.vectorPath.Count)
+        // Only move if outside idleDistance
+        if (distanceToDestination > idleDistance)
         {
-            reachedEndOfPath = true;
-            return;
+            rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
         }
 
-        reachedEndOfPath = false;
 
-        //Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        //Vector2 force = direction * speed * Time.deltaTime;
-        //rb.AddForce(force);
+        //start zombie attack function when in range
+        if (canChase && target != null)
+        {
+            float distanceToTarget = Vector2.Distance(transform.position, target.position);
+            if (distanceToTarget <= attackDistance)
+            {
+                // Attack the player
+                 Debug.Log("Zombie Attacking");
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        Vector2 newPos = rb.position + direction * speed * Time.fixedDeltaTime;
-        rb.MovePosition(newPos);
+            }
+        }
+    }
 
+    private void Update()
+    {
+        //get zombie position and direction to player
+        if (canChase && target != null)
+        {
+            MoveDirection = (target.position - transform.position).normalized;
+        }
+        else
+        {
+            MoveDirection = (startPos - (Vector2)transform.position).normalized;
+        }
+
+        //move zombie towards player
+        movement = MoveDirection;
         
+    }
+    public void StartChasing(Transform chaseTarget)
+    {
+        canChase = true;
+        target = chaseTarget;
+    }
 
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
-
-        if (distance < nextWayPointDistance)
-        {
-            currentWayPoint++;
-        }
-
-
-        // Animation (use movement direction, not velocity)
-        bool isMoving = direction.sqrMagnitude > 0.01f;
-        animator.SetBool("isMoving", isMoving);
-
-        if (isMoving)
-        {
-            animator.SetFloat("X", direction.x);
-            animator.SetFloat("Y", direction.y);
-        }
+    public void StopChasing()
+    {
+        canChase = false;
+        target = null;
     }
 }

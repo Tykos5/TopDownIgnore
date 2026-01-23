@@ -31,22 +31,19 @@ public class Player : MonoBehaviour
     private float x;
     private float y;
 
-    public ZombieLogic zombie;
+    public EnemyAI zombie;
 
-
-
+    private bool inZombieTrigger = false;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        zombie.aiPath.canMove = false;
+
     }
 
     // Update is called once per frame
@@ -63,8 +60,6 @@ public class Player : MonoBehaviour
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
 
         _rb.linearVelocity = _movement * _moveSpeed;   
-        
-
     }
 
     public void Dash()
@@ -187,12 +182,21 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("ZombieTrigger"))
+        if (collision.CompareTag("ZombieTrigger"))
         {
             Debug.Log("Player entered zombie trigger");
-            zombie = collision.gameObject.GetComponentInParent<ZombieLogic>();
-            zombie.aiPath.canMove = true;
+
+            zombie.StartChasing(transform); // send PLAYER transform
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ZombieTrigger"))
+        {
+            Debug.Log("Player exited zombie trigger");
+
+            zombie.StopChasing();
+        }
+    }
 }

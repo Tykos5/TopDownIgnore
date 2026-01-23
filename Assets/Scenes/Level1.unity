@@ -4600,6 +4600,7 @@ GameObject:
   - component: {fileID: 863616427}
   - component: {fileID: 863616429}
   - component: {fileID: 863616428}
+  - component: {fileID: 863616430}
   m_Layer: 6
   m_Name: Zombie_Small
   m_TagString: Untagged
@@ -4619,8 +4620,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1251267714}
+  m_Children: []
   m_Father: {fileID: 1621349533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &863616428
@@ -4703,6 +4703,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &863616430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863616426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463dffdfb140f0c469c480e8cef98cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  isMoving: 0
 --- !u!1 &864990861
 GameObject:
   m_ObjectHideFlags: 0
@@ -5812,6 +5825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251267714}
   - component: {fileID: 1251267715}
+  - component: {fileID: 1251267716}
   m_Layer: 0
   m_Name: TriggerZone
   m_TagString: ZombieTrigger
@@ -5828,11 +5842,11 @@ Transform:
   m_GameObject: {fileID: 1251267713}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.33249998, y: -3.89987, z: 0}
+  m_LocalPosition: {x: 4.0625, y: 17.63013, z: 0}
   m_LocalScale: {x: 6.3833, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 863616427}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1251267715
 BoxCollider2D:
@@ -5868,7 +5882,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09399247, y: 2.5757322}
+  m_Offset: {x: -0.09399247, y: 2.8454432}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5878,8 +5892,20 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.7773237, y: 9.772593}
+  m_Size: {x: 2.7773237, y: 12.110097}
   m_EdgeRadius: 0
+--- !u!114 &1251267716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251267713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a853781da7cd634985a9cb6a8bfd933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartZombie
 --- !u!1 &1621349528
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,8 +5941,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   target: {fileID: 1809686615}
-  speed: 3
-  nextWayPointDistance: 1
+  canChase: 0
+  speed: 2
+  startPos: {x: 0, y: 0}
 --- !u!50 &1621349530
 Rigidbody2D:
   serializedVersion: 5
@@ -6017,7 +6044,7 @@ Transform:
   m_GameObject: {fileID: 1621349528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.73, y: 22.53, z: 0}
+  m_LocalPosition: {x: 3.67, y: 22.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6092,7 +6119,7 @@ Animator:
   m_GameObject: {fileID: 1621349528}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f8722ce94e4e71a42a8f7830331808cc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9dec9ddadce5e4b48af4874ece3f3b27, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6279,7 +6306,7 @@ MonoBehaviour:
   dashDuration: 0.3
   dashCooldown: 0.6
   anim: {fileID: 1809686619}
-  zombie: {fileID: 0}
+  zombie: {fileID: 1621349529}
 --- !u!95 &1809686619
 Animator:
   serializedVersion: 7
@@ -7564,6 +7591,7 @@ SceneRoots:
   - {fileID: 1809686615}
   - {fileID: 1084442260}
   - {fileID: 1621349533}
+  - {fileID: 1251267714}
   - {fileID: 1048026063}
   - {fileID: 864990864}
   - {fileID: 701197645}

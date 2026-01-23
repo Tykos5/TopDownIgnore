@@ -13,4 +13,9 @@ public class StartZombie : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Zombie Started");
+    }
 }
