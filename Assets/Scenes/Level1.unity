@@ -4697,7 +4697,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 1.0666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4940,6 +4940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieLogic
   aiPath: {fileID: 1084442258}
+  animator: {fileID: 0}
+  movement: {x: 0, y: 0}
 --- !u!1 &1002097975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5944,6 +5946,8 @@ MonoBehaviour:
   canChase: 0
   speed: 2
   startPos: {x: 0, y: 0}
+  attackDuration: 1
+  attackCooldown: 2
 --- !u!50 &1621349530
 Rigidbody2D:
   serializedVersion: 5

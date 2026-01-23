@@ -15,13 +15,14 @@ public class EnemyAI : MonoBehaviour
     
     Rigidbody2D rb;
 
-    private Vector2 movement;
-
     public Vector2 startPos;
 
-
     public float idleDistance { get; private set; } = 1f;
-    public float attackDistance { get; private set; } = 1.5f;
+    public float attackRange { get; private set; } = 1.5f;
+
+    public bool isAttacking { get; private set; } = false;
+    public float attackDuration = 1f;
+    public float attackCooldown = 2f;
 
 
     public Vector2 MoveDirection { get; private set; }
@@ -52,11 +53,16 @@ public class EnemyAI : MonoBehaviour
         if (canChase && target != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.position);
-            if (distanceToTarget <= attackDistance)
+            if (distanceToTarget <= attackRange)
             {
                 // Attack the player
-                 Debug.Log("Zombie Attacking");
+                Debug.Log("Zombie Attacking");
+                zombieAttack();
+            }
 
+            else
+            {
+                isAttacking = false;
             }
         }
     }
@@ -72,20 +78,23 @@ public class EnemyAI : MonoBehaviour
         {
             MoveDirection = (startPos - (Vector2)transform.position).normalized;
         }
-
-        //move zombie towards player
-        movement = MoveDirection;
-        
     }
     public void StartChasing(Transform chaseTarget)
     {
         canChase = true;
         target = chaseTarget;
     }
-
     public void StopChasing()
     {
         canChase = false;
         target = null;
+    }
+
+    private void zombieAttack()
+    {
+        // Implement attack logic here
+        Debug.Log("Zombie Attack Logic Triggered");
+        isAttacking = true;
+        //StartCoroutine(AttackCooldownCoroutine());
     }
 }
