@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
 using Unity.VisualScripting;
+using System.Dynamic;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Player : MonoBehaviour
     bool isDashing = false;
     bool canDash = true;
     TrailRenderer trailRenderer;
+
+    [SerializeField] private float attackCooldown = 1f;
+    bool canAttack = true;
 
     public Animator anim;
     
@@ -70,6 +74,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        if (canAttack)
+        {
+            x = direction switch
+            {
+                "Up" => 0,
+                "Down" => 0,
+                "Left" => -1,
+                "Right"  => 1,
+                "UpLeft" => -1,
+                "UpRight" => 1,
+                "DownLeft" => -1,
+                "DownRight" => 1,
+                _ => 0,
+            };
+
+            y = direction switch
+            {
+                "Up" => 1,
+                "Down" => -1,
+                "Left" => 0,
+                "Right" => 0,
+                "UpLeft" => 0,
+                "UpRight" => 0,
+                "DownLeft" => 0,
+                "DownRight" => 0,
+                _ => 1,
+            };
+
+
+            anim.SetFloat("AttackX", x);
+            anim.SetFloat("AttackY", y);
+            StartCoroutine(AttackCoroutine());
+        }
+    }
+
     private IEnumerator DashCoroutine()
     {
         canDash = false;
@@ -101,6 +142,17 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
+    private IEnumerator AttackCoroutine()
+    {
+        canAttack = false;
+        //Play attack animation based on direction
+        anim.SetTrigger("Attack");
+
+        //Here you can add code to deal damage to enemies in range based on direction
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
     private void GetInput()
     {
         x = InputManager.Movement.x;
@@ -113,6 +165,12 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Dash pressed in Player script");
             Dash();
+        }
+
+        if (InputManager.AttackPressed)
+        {
+            Debug.Log ("Attack pressed in Player script");
+            Attack();
         }
     }
     private void Animate()
@@ -188,6 +246,7 @@ public class Player : MonoBehaviour
 
             zombie.StartChasing(transform); // send PLAYER transform
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)

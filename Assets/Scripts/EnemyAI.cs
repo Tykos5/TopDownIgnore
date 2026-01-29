@@ -42,12 +42,7 @@ public class EnemyAI : MonoBehaviour
         Vector2 destination = canChase && target != null ? (Vector2)target.position : startPos;
         float distanceToDestination = Vector2.Distance(rb.position, destination);
 
-        // Only move if outside idleDistance
-        if (distanceToDestination > idleDistance)
-        {
-            rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
-        }
-
+        Move(distanceToDestination, speed, rb);
 
         //start zombie attack function when in range
         if (canChase && target != null)
@@ -77,6 +72,15 @@ public class EnemyAI : MonoBehaviour
         else
         {
             MoveDirection = (startPos - (Vector2)transform.position).normalized;
+        }
+    }
+
+    private void Move(float distance, float speed, Rigidbody2D rb)
+    {
+        // Only move if outside idleDistance
+        if (distance > idleDistance)
+        {
+            rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
         }
     }
     public void StartChasing(Transform chaseTarget)

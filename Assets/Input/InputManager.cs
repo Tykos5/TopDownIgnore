@@ -8,8 +8,12 @@ public class InputManager : MonoBehaviour
 
     private PlayerInput _playerInput;
     private InputAction _moveAction;
+
     private InputAction _dashAction;
     public static bool DashPressed;
+
+    private InputAction _attackAction;
+    public static bool AttackPressed;
 
     private void Awake()
     {
@@ -18,6 +22,8 @@ public class InputManager : MonoBehaviour
         _moveAction = _playerInput.actions["Move"];
 
         _dashAction = _playerInput.actions["Dash"];
+
+        _attackAction = _playerInput.actions["Attack"];
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,9 +37,15 @@ public class InputManager : MonoBehaviour
         Movement = _moveAction.ReadValue<Vector2>();
 
         DashPressed = _dashAction.WasPerformedThisFrame();
-        if (DashPressed)
-        {
-            Debug.Log("Dash pressed");
-        }
+        //if (DashPressed)
+        //{
+        //    Debug.Log("Dash pressed");
+        //}
+
+        AttackPressed = _attackAction.WasPerformedThisFrame();
+        //if (AttackPressed)
+        //{
+        //    Debug.Log("Attack pressed");
+        //}
     }
 }
