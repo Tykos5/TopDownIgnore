@@ -24,6 +24,8 @@ public class EnemyAI : MonoBehaviour
     public float attackDuration = 1f;
     public float attackCooldown = 2f;
 
+    public float health, maxHealth = 5;
+
 
     public Vector2 MoveDirection { get; private set; }
 
@@ -33,6 +35,8 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         startPos = transform.position;
+
+        health = maxHealth;
     }
 
 
@@ -83,11 +87,13 @@ public class EnemyAI : MonoBehaviour
             rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
         }
     }
+
     public void StartChasing(Transform chaseTarget)
     {
         canChase = true;
         target = chaseTarget;
     }
+
     public void StopChasing()
     {
         canChase = false;
@@ -100,5 +106,21 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("Zombie Attack Logic Triggered");
         isAttacking = true;
         //StartCoroutine(AttackCooldownCoroutine());
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Implement death logic here
+        Debug.Log("Enemy Died");
+        Destroy(gameObject);
     }
 }

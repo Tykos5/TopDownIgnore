@@ -4,7 +4,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Dynamic;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private float _moveSpeed = 5f;
@@ -16,10 +16,9 @@ public class Player : MonoBehaviour
     bool canDash = true;
     TrailRenderer trailRenderer;
 
-    [SerializeField] private float attackCooldown = 1f;
-    bool canAttack = true;
-
     public Animator anim;
+
+    public PlayerAttack playerAttack;
     
     private Vector2 _movement;
 
@@ -37,8 +36,6 @@ public class Player : MonoBehaviour
 
     public EnemyAI zombie;
 
-    private bool inZombieTrigger = false;
-
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -54,9 +51,10 @@ public class Player : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
-        GetInput();
-        Animate();
         direction = GetDirection();
+        GetInputs();
+        Animate();
+        
 
         if (isDashing)
             return;
@@ -74,42 +72,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
-        if (canAttack)
-        {
-            x = direction switch
-            {
-                "Up" => 0,
-                "Down" => 0,
-                "Left" => -1,
-                "Right"  => 1,
-                "UpLeft" => -1,
-                "UpRight" => 1,
-                "DownLeft" => -1,
-                "DownRight" => 1,
-                _ => 0,
-            };
-
-            y = direction switch
-            {
-                "Up" => 1,
-                "Down" => -1,
-                "Left" => 0,
-                "Right" => 0,
-                "UpLeft" => 0,
-                "UpRight" => 0,
-                "DownLeft" => 0,
-                "DownRight" => 0,
-                _ => 1,
-            };
-
-
-            anim.SetFloat("AttackX", x);
-            anim.SetFloat("AttackY", y);
-            StartCoroutine(AttackCoroutine());
-        }
-    }
 
     private IEnumerator DashCoroutine()
     {
@@ -142,18 +104,8 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
-    private IEnumerator AttackCoroutine()
-    {
-        canAttack = false;
-        //Play attack animation based on direction
-        anim.SetTrigger("Attack");
 
-        //Here you can add code to deal damage to enemies in range based on direction
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
-
-    private void GetInput()
+    public void GetInputs()
     {
         x = InputManager.Movement.x;
         y = InputManager.Movement.y;
@@ -170,9 +122,11 @@ public class Player : MonoBehaviour
         if (InputManager.AttackPressed)
         {
             Debug.Log ("Attack pressed in Player script");
-            Attack();
+
+            playerAttack.Attack(direction);
         }
     }
+
     private void Animate()
     {
         if (input.magnitude > 0.1f || input.magnitude < -0.1f)
@@ -192,7 +146,7 @@ public class Player : MonoBehaviour
         anim.SetBool("Moving", moving);
     }
 
-    private string GetDirection() // Returns "Up", "Down", "Left", "Right", "UpLeft", "UpRight", "DownLeft" or "DownRight" based on input x and y values
+    public string GetDirection() // Returns "Up", "Down", "Left", "Right", "UpLeft", "UpRight", "DownLeft" or "DownRight" based on input x and y values
     {
         if (y > 0 && x == 0)
         {

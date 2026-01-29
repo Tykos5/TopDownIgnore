@@ -132,7 +132,7 @@ TextureImporter:
         serializedVersion: 2
         x: 15
         y: 17
-        width: 25
+        width: 31
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -154,8 +154,8 @@ TextureImporter:
         serializedVersion: 2
         x: 73
         y: 7
-        width: 37
-        height: 35
+        width: 45
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,8 +176,8 @@ TextureImporter:
         serializedVersion: 2
         x: 140
         y: 7
-        width: 35
-        height: 34
+        width: 39
+        height: 41
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,10 +196,10 @@ TextureImporter:
       name: spr_player_front_attack_4
       rect:
         serializedVersion: 2
-        x: 203
-        y: 10
-        width: 35
-        height: 32
+        x: 204
+        y: 8
+        width: 37
+        height: 41
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: spr_player_front_attack_5
       rect:
         serializedVersion: 2
-        x: 279
+        x: 271
         y: 13
-        width: 23
-        height: 30
+        width: 31
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

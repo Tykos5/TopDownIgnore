@@ -124,9 +124,9 @@ TextureImporter:
       name: spr_player_left_attack_0
       rect:
         serializedVersion: 2
-        x: 24
+        x: 18
         y: 17
-        width: 24
+        width: 30
         height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -148,7 +148,7 @@ TextureImporter:
         serializedVersion: 2
         x: 60
         y: 17
-        width: 47
+        width: 68
         height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -170,7 +170,7 @@ TextureImporter:
         serializedVersion: 2
         x: 131
         y: 17
-        width: 38
+        width: 54
         height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -192,7 +192,7 @@ TextureImporter:
         serializedVersion: 2
         x: 194
         y: 17
-        width: 39
+        width: 59
         height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,9 +212,9 @@ TextureImporter:
       name: spr_player_left_attack_5
       rect:
         serializedVersion: 2
-        x: 269
+        x: 268
         y: 17
-        width: 28
+        width: 41
         height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
