@@ -8,6 +8,7 @@ TagManager:
   - ZombieTrigger
   - Zombie_small
   - PlayerAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX

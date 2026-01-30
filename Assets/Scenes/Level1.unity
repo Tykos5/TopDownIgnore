@@ -4601,6 +4601,7 @@ GameObject:
   - component: {fileID: 863616429}
   - component: {fileID: 863616428}
   - component: {fileID: 863616430}
+  - component: {fileID: 863616431}
   m_Layer: 7
   m_Name: Zombie_Small
   m_TagString: Untagged
@@ -4716,6 +4717,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   isMoving: 0
+--- !u!114 &863616431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863616426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a51132cb59de4746b72216f4cb6ecf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  attackRange: 1.5
+  attackDamage: 1
+  attackCooldown: 1
 --- !u!1 &864990861
 GameObject:
   m_ObjectHideFlags: 0
@@ -4823,7 +4839,7 @@ GameObject:
   - component: {fileID: 957655937}
   - component: {fileID: 957655939}
   - component: {fileID: 957655938}
-  - component: {fileID: 957655940}
+  - component: {fileID: 957655941}
   m_Layer: 8
   m_Name: Melee
   m_TagString: Untagged
@@ -4956,7 +4972,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &957655940
+--- !u!114 &957655941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4965,14 +4981,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 957655936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5596e2418633a60489351b48cf7da30a, type: 3}
+  m_Script: {fileID: 11500000, guid: 464ed3dd10bd30044ad525cf5817531d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  anim: {fileID: 1809686619}
-  attackCooldown: 1
-  attackOffset: 0.8
-  attackDuration: 0.3
-  Melee: {fileID: 957655936}
+  m_EditorClassIdentifier: '::'
+  damage: 1
+  attackOrigin: {fileID: 1809686616}
 --- !u!1 &999142019
 GameObject:
   m_ObjectHideFlags: 0
@@ -5721,7 +5734,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1251267714}
   - component: {fileID: 1251267715}
-  - component: {fileID: 1251267716}
   m_Layer: 6
   m_Name: TriggerZone
   m_TagString: ZombieTrigger
@@ -5790,18 +5802,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.7773237, y: 12.110097}
   m_EdgeRadius: 0
---- !u!114 &1251267716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251267713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a853781da7cd634985a9cb6a8bfd933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartZombie
 --- !u!1 &1621349528
 GameObject:
   m_ObjectHideFlags: 0
@@ -5815,11 +5815,11 @@ GameObject:
   - component: {fileID: 1621349531}
   - component: {fileID: 1621349530}
   - component: {fileID: 1621349529}
-  - component: {fileID: 1621349535}
   - component: {fileID: 1621349534}
+  - component: {fileID: 1621349536}
   m_Layer: 7
   m_Name: Enemy_scripted
-  m_TagString: Zombie_small
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5842,8 +5842,10 @@ MonoBehaviour:
   startPos: {x: 0, y: 0}
   attackDuration: 1
   attackCooldown: 2
+  damageCooldown: 0.5
   health: 0
-  maxHealth: 5
+  maxHealth: 20
+  enemyAttack: {fileID: 863616431}
 --- !u!50 &1621349530
 Rigidbody2D:
   serializedVersion: 5
@@ -6009,28 +6011,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1621349535
-Animator:
-  serializedVersion: 7
+--- !u!114 &1621349536
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621349528}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9dec9ddadce5e4b48af4874ece3f3b27, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e34e41250b6f0e409417ed274acb094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Knockback
+  knockbackForce: 10
+  knockbackDuration: 0.2
 --- !u!1 &1809686613
 GameObject:
   m_ObjectHideFlags: 0
@@ -6046,9 +6040,10 @@ GameObject:
   - component: {fileID: 1809686618}
   - component: {fileID: 1809686620}
   - component: {fileID: 1809686619}
+  - component: {fileID: 1809686621}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6245,10 +6240,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   anim: {fileID: 1809686619}
-  attackCooldown: 1
-  attackOffset: 0.8
+  attackCooldown: 0.9
+  attackOffset: 1
   attackDuration: 0.3
   Melee: {fileID: 957655936}
+--- !u!114 &1809686621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809686613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fed240ed25338f46851b299dc0e66b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
 --- !u!1 &1950809804
 GameObject:
   m_ObjectHideFlags: 0

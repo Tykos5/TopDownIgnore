@@ -20,11 +20,16 @@ public class EnemyAI : MonoBehaviour
     public float idleDistance { get; private set; } = 1f;
     public float attackRange { get; private set; } = 1.5f;
 
-    public bool isAttacking { get; private set; } = false;
     public float attackDuration = 1f;
     public float attackCooldown = 2f;
+    public float damageCooldown = 0.5f;
+    private bool canTakeDamage = true;
 
     public float health, maxHealth = 5;
+
+    private Knockback kb;
+
+    public EnemyAttack enemyAttack;
 
 
     public Vector2 MoveDirection { get; private set; }
@@ -33,6 +38,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        kb = GetComponent<Knockback>();
 
         startPos = transform.position;
 
@@ -52,16 +58,16 @@ public class EnemyAI : MonoBehaviour
         if (canChase && target != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.position);
-            if (distanceToTarget <= attackRange)
-            {
-                // Attack the player
-                Debug.Log("Zombie Attacking");
-                zombieAttack();
-            }
 
-            else
+            if (enemyAttack == null)
             {
-                isAttacking = false;
+                Debug.LogWarning("EnemyAttack component is missing on the enemy.");
+                return;
+            }
+            if (canChase && distanceToTarget <= attackRange)
+            {
+                //Debug.Log("In attack range, trying to attack from EnemyAI script");
+                enemyAttack.TryAttack();
             }
         }
     }
@@ -81,10 +87,12 @@ public class EnemyAI : MonoBehaviour
 
     private void Move(float distance, float speed, Rigidbody2D rb)
     {
-        // Only move if outside idleDistance
-        if (distance > idleDistance)
+        if (kb == null || !kb.isBeingKnockedBack)
         {
-            rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
+            if (distance > idleDistance)
+            {
+                rb.MovePosition(rb.position + MoveDirection * speed * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -92,6 +100,9 @@ public class EnemyAI : MonoBehaviour
     {
         canChase = true;
         target = chaseTarget;
+
+        if (enemyAttack != null)
+            enemyAttack.SetTarget(chaseTarget);
     }
 
     public void StopChasing()
@@ -100,21 +111,29 @@ public class EnemyAI : MonoBehaviour
         target = null;
     }
 
-    private void zombieAttack()
+    public void TakeDamage(float damage, Vector2 hitSource)
     {
-        // Implement attack logic here
-        Debug.Log("Zombie Attack Logic Triggered");
-        isAttacking = true;
-        //StartCoroutine(AttackCooldownCoroutine());
-    }
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
+        if (canTakeDamage)
         {
-            Die();
+            health -= damage;
+
+            if (health <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized;
+                kb.ApplyKnockback(knockDir, rb);
+            }
+            StartCoroutine(DamageIFrame());
         }
+    }
+    private IEnumerator DamageIFrame()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(damageCooldown);
+        canTakeDamage = true;
     }
 
     void Die()

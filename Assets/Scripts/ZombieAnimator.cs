@@ -16,7 +16,6 @@ public class ZombieAnimator : MonoBehaviour
     {
         Vector2 dir = enemyAI.MoveDirection;
         float idleDis = enemyAI.idleDistance;
-        bool isAttacking = enemyAI.isAttacking;
 
         float distanceToTarget = Vector2.Distance(enemyAI.transform.position, enemyAI.canChase ? (Vector3)enemyAI.target.position : (Vector3)enemyAI.startPos);
 
@@ -26,7 +25,11 @@ public class ZombieAnimator : MonoBehaviour
 
         animator.SetFloat("X", dir.x);
         animator.SetFloat("Y", dir.y);
-        
-        animator.SetBool("isAttacking", isAttacking);
+    }
+
+    public void Attack()
+    {
+        Debug.Log("Zombie Attack Animation Triggered");
+        animator.SetTrigger("Attack");
     }
 }
