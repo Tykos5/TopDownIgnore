@@ -36,9 +36,12 @@ public class PlayerMovement : MonoBehaviour
 
     public EnemyAI zombie;
 
+    private Knockback kb;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        kb = GetComponent<Knockback>();
     }
 
     void Update()
@@ -49,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
         
 
         if (isDashing)
+            return;
+
+        if (kb != null && kb.isBeingKnockedBack)
             return;
 
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);

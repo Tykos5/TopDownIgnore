@@ -14,6 +14,7 @@ public class EnemyAttack : MonoBehaviour
 
     private bool canAttack = true;
     private Transform target;
+    private Vector2 direction;
 
     //private Animator anim;
 
@@ -67,6 +68,7 @@ public class EnemyAttack : MonoBehaviour
     {
         //Debug.Log("Damage function started");
         float distance = Vector2.Distance(transform.position, target.position);
+        direction = (target.position - transform.position).normalized;
 
         if (distance <= attackRange)
         {
@@ -75,7 +77,7 @@ public class EnemyAttack : MonoBehaviour
             if (playerHealth != null)
             {
                 Debug.Log("Dealing damage to player");
-                playerHealth.TakeDamage(attackDamage);
+                playerHealth.TakeDamage(attackDamage, direction);
             }
             else
                 Debug.LogWarning("PlayerHealth component not found on player.");
