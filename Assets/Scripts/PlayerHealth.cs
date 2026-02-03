@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,13 +9,17 @@ public class PlayerHealth : MonoBehaviour
 
     private Knockback kb;
 
-    [SerializeField] float health = 10f;
+    public HealthBar healthBar;
+
+    [SerializeField] float maxHealth = 10f;
+    public float health;
     private bool canTakeDamage;
     private float damageCooldown = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         kb = GetComponent<Knockback>();
         canTakeDamage = true;
@@ -31,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         Debug.Log("Player took damage: " + health);
 
+        healthBar.SetHealth((int)health);
+
         kb.ApplyKnockback(direction, rb);
 
         if (health <= 0)
@@ -46,5 +53,4 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(damageCooldown);
         canTakeDamage = true;
     }
-
 }
