@@ -29,7 +29,7 @@ public class ZombieAnimator : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Zombie Attack Animation Triggered");
+        //Debug.Log("Zombie Attack Animation Triggered");
         animator.SetTrigger("Attack");
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Zombie_small
   - PlayerAttack
   - Enemy
+  - Nextlevel
   layers:
   - Default
   - TransparentFX

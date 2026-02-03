@@ -113,13 +113,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (InputManager.DashPressed)
         {
-            Debug.Log("Dash pressed in Player script");
+            //Debug.Log("Dash pressed in Player script");
             Dash();
         }
 
         if (InputManager.AttackPressed)
         {
-            Debug.Log ("Attack pressed in Player script");
+            //Debug.Log ("Attack pressed in Player script");
 
             playerAttack.Attack(direction);
         }
@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("ZombieTrigger"))
         {
-            Debug.Log("Player entered zombie trigger");
+            //Debug.Log("Player entered zombie trigger");
 
             zombie.StartChasing(transform); // send PLAYER transform
         }
@@ -205,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("ZombieTrigger"))
         {
-            Debug.Log("Player exited zombie trigger");
+            //Debug.Log("Player exited zombie trigger");
 
             zombie.StopChasing();
         }

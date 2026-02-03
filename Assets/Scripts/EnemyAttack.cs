@@ -47,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
 
-        Debug.Log("Attack reqs met");
+        //Debug.Log("Attack reqs met");
         StartCoroutine(AttackCoroutine());
         
     }
@@ -58,7 +58,7 @@ public class EnemyAttack : MonoBehaviour
 
         zombieAnim.Attack();
 
-        Debug.Log("Enemy attacks!");
+        //Debug.Log("Enemy attacks!");
 
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
@@ -76,7 +76,7 @@ public class EnemyAttack : MonoBehaviour
 
             if (playerHealth != null)
             {
-                Debug.Log("Dealing damage to player");
+                //Debug.Log("Dealing damage to player");
                 playerHealth.TakeDamage(attackDamage, direction);
             }
             else

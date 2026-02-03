@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using UnityEngine.Windows.WebCam;
+using UnityEngine.Events;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class EnemyAI : MonoBehaviour
     private Knockback kb;
 
     public EnemyAttack enemyAttack;
+
+    public UnityEvent onEnemyDeath;
 
 
     public Vector2 MoveDirection { get; private set; }
@@ -119,6 +122,9 @@ public class EnemyAI : MonoBehaviour
 
             if (health <= 0)
             {
+                // Call for dissapearing wall do dissapear and gate to open
+                onEnemyDeath.Invoke();
+
                 Die();
             }
             else

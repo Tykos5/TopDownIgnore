@@ -33,6 +33,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage, Vector2 direction)
     {
+        if (!canTakeDamage)
+            return;
+
         health -= damage;
         Debug.Log("Player took damage: " + health);
 
