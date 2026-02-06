@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
     private float x;
     private float y;
 
-    public EnemyAI zombie;
-
     private Knockback kb;
 
     private void Awake()
@@ -190,24 +188,24 @@ public class PlayerMovement : MonoBehaviour
             return lastDirection;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ZombieTrigger"))
-        {
-            //Debug.Log("Player entered zombie trigger");
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("ZombieTrigger"))
+    //    {
+    //        //Debug.Log("Player entered zombie trigger");
 
-            zombie.StartChasing(transform); // send PLAYER transform
-        }
+    //        zombie.StartChasing(transform); // send PLAYER transform
+    //    }
         
-    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ZombieTrigger"))
-        {
-            //Debug.Log("Player exited zombie trigger");
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("ZombieTrigger"))
+    //    {
+    //        //Debug.Log("Player exited zombie trigger");
 
-            zombie.StopChasing();
-        }
-    }
+    //        zombie.StopChasing();
+    //    }
+    //}
 }

@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -23,6 +24,9 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         kb = GetComponent<Knockback>();
         canTakeDamage = true;
+
+        if (healthBar == null)
+            healthBar = FindFirstObjectByType<HealthBar>();
     }
 
     // Update is called once per frame
@@ -55,5 +59,20 @@ public class PlayerHealth : MonoBehaviour
         canTakeDamage = false;
         yield return new WaitForSeconds(damageCooldown);
         canTakeDamage = true;
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        healthBar = FindFirstObjectByType<HealthBar>();
     }
 }

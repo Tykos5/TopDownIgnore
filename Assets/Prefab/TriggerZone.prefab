@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202381539448909207}
   - component: {fileID: 2831422039837877430}
+  - component: {fileID: 6754242639046843807}
   m_Layer: 6
   m_Name: TriggerZone
   m_TagString: ZombieTrigger
@@ -78,3 +79,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.7773237, y: 12.110097}
   m_EdgeRadius: 0
+--- !u!114 &6754242639046843807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443259193714494765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae7f0fcfbec3e34b8305eb18b5f4599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerZombie
+  zombies:
+  - {fileID: 0}
