@@ -129,6 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3824430}
   - component: {fileID: 3824431}
+  - component: {fileID: 3824432}
+  - component: {fileID: 3824433}
   m_Layer: 0
   m_Name: SpearPickup
   m_TagString: Untagged
@@ -145,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 3824429}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.9282, y: 19.15859, z: 0}
+  m_LocalPosition: {x: 5.11, y: 19.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,6 +174,54 @@ MonoBehaviour:
   spawnEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3824432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e3f5c93b6f56345a99ed6ae9fc4f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!58 &3824433
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1001 &45284601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -660,7 +710,7 @@ GameObject:
   - component: {fileID: 367127437}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2249,6 +2299,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+--- !u!4 &648980734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5669627809196854441, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
+  m_PrefabInstance: {fileID: 921955451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &678921338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2375,7 +2430,8 @@ MonoBehaviour:
   - {fileID: 957183206}
   - {fileID: 475553126}
   - {fileID: 344429315}
-  formDelay: 0.2
+  - {fileID: 3824429}
+  formDelay: 0.11
 --- !u!4 &687195427
 Transform:
   m_ObjectHideFlags: 0
@@ -2507,6 +2563,14 @@ PrefabInstance:
       propertyPath: zombie
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4959447652777591729, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
+      propertyPath: Aim
+      value: 
+      objectReference: {fileID: 648980734}
+    - target: {fileID: 4959447652777591729, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
+      propertyPath: SpearPrefab
+      value: 
+      objectReference: {fileID: 7198237989550134243, guid: c3dafdb9f86571840b713e5b5c32a94d, type: 3}
     - target: {fileID: 4959447652777591729, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
       propertyPath: attackDuration
       value: 0.1

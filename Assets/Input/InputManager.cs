@@ -15,6 +15,9 @@ public class InputManager : MonoBehaviour
     private InputAction _attackAction;
     public static bool AttackPressed;
 
+    private InputAction _spearAction;
+    public static bool SpearPressed;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -24,12 +27,11 @@ public class InputManager : MonoBehaviour
         _dashAction = _playerInput.actions["Dash"];
 
         _attackAction = _playerInput.actions["Attack"];
+
+        _spearAction = _playerInput.actions["Spear"];
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -47,5 +49,11 @@ public class InputManager : MonoBehaviour
         //{
         //    Debug.Log("Attack pressed");
         //}
+
+        SpearPressed = _spearAction.WasPerformedThisFrame();
+        if (SpearPressed)
+        {
+            //Debug.Log("Spear pressed");
+        }
     }
 }

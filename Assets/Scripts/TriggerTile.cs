@@ -9,7 +9,7 @@ public class TriggerTile : MonoBehaviour
     public GameObject nextCoffin;
     public float spawnDelay = 0.2f;
 
-    private bool isActive = true;
+    //private bool isActive = true;
 
 
     public GameObject tilemapObject;

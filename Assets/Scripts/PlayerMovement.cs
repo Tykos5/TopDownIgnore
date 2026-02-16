@@ -118,8 +118,13 @@ public class PlayerMovement : MonoBehaviour
         if (InputManager.AttackPressed)
         {
             //Debug.Log ("Attack pressed in Player script");
-
             playerAttack.Attack(direction);
+        }
+
+        if (InputManager.SpearPressed)
+        {
+            //Debug.Log("Spear pressed in Player script");
+            playerAttack.Spear(direction);
         }
     }
 

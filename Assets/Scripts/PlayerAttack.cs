@@ -11,11 +11,20 @@ public class PlayerAttack : MonoBehaviour
 
     public Animator anim;
 
+    //Melee attack variables
     [SerializeField] public float attackCooldown = 1f;
     [SerializeField] public float attackOffset = 0.8f;
     [SerializeField] public float attackDuration = 0.3f;
     bool canAttack = true;
     public GameObject Melee;
+
+    //Ranged attack variables
+    public Transform Aim;
+    public GameObject SpearPrefab;
+    public float SpearSpeed = 10f;
+    public float SpearCooldown = 2f;
+    public bool canSpear = false;
+    public Vector2 dir;
 
     float x;
     float y;
@@ -27,12 +36,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
+        Aim = transform.Find("Aim");
         Melee.SetActive(false);
-    }
-
-    void Update()
-    {
-
     }
 
     public void Attack(string direction)
@@ -87,6 +92,33 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    public void Spear(string direction)
+    {
+        if (canSpear)
+        {
+             dir = GetDirectionVector(direction).normalized;
+
+            canSpear = false;
+            Debug.Log("Spear Attack Triggered");
+            GameObject intSpear = Instantiate(SpearPrefab, Aim.position, Quaternion.identity);
+
+            //Rotate spear
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            intSpear.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
+
+            //Shoot
+            intSpear.GetComponent<Rigidbody2D>().AddForce(dir * SpearSpeed, ForceMode2D.Impulse);
+            Destroy(intSpear, 5f);
+            StartCoroutine(SpearCoroutine());
+        }
+    }
+
+    private IEnumerator SpearCoroutine()
+    {
+        yield return new WaitForSeconds(SpearCooldown);
+        canSpear = true;
+    }
+
     private IEnumerator AttackCoroutine()
     {
         canAttack = false;
@@ -104,4 +136,21 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(attackDuration);
         Melee.SetActive(false);
     }
+
+    private Vector2 GetDirectionVector(string direction)
+    {
+        return direction switch
+        {
+            "Up" => Vector2.up,
+            "Down" => Vector2.down,
+            "Left" => Vector2.left,
+            "Right" => Vector2.right,
+            "UpLeft" => new Vector2(-1, 1),
+            "UpRight" => new Vector2(1, 1),
+            "DownLeft" => new Vector2(-1, -1),
+            "DownRight" => new Vector2(1, -1),
+            _ => Vector2.right,
+        };
+    }
+
 }

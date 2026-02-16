@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttack
   - Enemy
   - Nextlevel
+  - Wall
   layers:
   - Default
   - TransparentFX

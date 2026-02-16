@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public float damage = 1;
 
-    [SerializeField] public Rigidbody2D attackOrigin;
+    public Rigidbody2D attackOrigin;
 
-    void start()
-    {   
-        attackOrigin = GetComponentInParent<Rigidbody2D>();
+    void Start()
+    {
+        attackOrigin = GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,11 +17,19 @@ public class Weapon : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
-           
+            //Damage the enemy
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage, attackOrigin.transform.position);
             }
+
+            //Destroy the projectile
+            Destroy(gameObject);
+        }
+        else if (collision.CompareTag("Wall"))
+        {
+            //Destroy the projectile
+            Destroy(gameObject);
         }
     }
 }
