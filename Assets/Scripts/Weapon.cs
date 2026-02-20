@@ -6,21 +6,30 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] public Rigidbody2D attackOrigin;
 
-    void start()
+    void Start()
     {   
         attackOrigin = GetComponentInParent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyAI enemyHealth = collision.GetComponent<EnemyAI>();
+        enemyHealth health = collision.GetComponent<enemyHealth>();
 
-        if (collision.CompareTag("Enemy"))
+        EnemyAI HP = collision.GetComponent<EnemyAI>();
+
+        if (collision.CompareTag("Reaper"))
         {
            
-            if (enemyHealth != null)
+            if (health != null)
             {
-                enemyHealth.TakeDamage(damage, attackOrigin.transform.position);
+                health.TakeDamage(damage, attackOrigin.transform.position);
+            }
+        }
+        else if (collision.CompareTag("Enemy"))
+        {
+            if (HP != null)
+            {
+                HP.TakeDamage(damage, attackOrigin.transform.position);
             }
         }
     }

@@ -13,23 +13,37 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyAI enemyHealth = collision.GetComponent<EnemyAI>();
+        EnemyAI Health = collision.GetComponent<EnemyAI>();
+
+        enemyHealth hp = collision.GetComponent<enemyHealth>();
 
         if (collision.CompareTag("Enemy"))
         {
             //Damage the enemy
-            if (enemyHealth != null)
+            if (Health != null)
             {
-                enemyHealth.TakeDamage(damage, attackOrigin.transform.position);
+                Health.TakeDamage(damage, attackOrigin.transform.position);
             }
 
             //Destroy the projectile
             Destroy(gameObject);
         }
+        else if (collision.CompareTag("Reaper"))
+        {
+            //Damage the reaper
+            if (hp != null)
+            {
+                hp.TakeDamage(damage, attackOrigin.transform.position);
+            }
+            //Destroy the projectile
+            Destroy(gameObject);
+        }
+
         else if (collision.CompareTag("Wall"))
         {
             //Destroy the projectile
             Destroy(gameObject);
         }
+
     }
 }
