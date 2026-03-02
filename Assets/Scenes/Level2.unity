@@ -3091,7 +3091,6 @@ GameObject:
   - component: {fileID: 700379503}
   - component: {fileID: 700379505}
   - component: {fileID: 700379504}
-  - component: {fileID: 700379506}
   - component: {fileID: 700379507}
   m_Layer: 0
   m_Name: Rango
@@ -3287,19 +3286,6 @@ MonoBehaviour:
   onEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &700379506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700379498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463dffdfb140f0c469c480e8cef98cea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZombieAnimator
-  isMoving: 0
 --- !u!95 &700379507
 Animator:
   serializedVersion: 7
@@ -11118,10 +11104,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1631914320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463dffdfb140f0c469c480e8cef98cea, type: 3}
+  m_Script: {fileID: 11500000, guid: 08f0676f6164a4b48a90e7ddbc448653, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZombieAnimator
-  isMoving: 0
+  m_EditorClassIdentifier: '::'
+  attackRange: 1
+  attackDamage: 1
+  attackCD: 2
 --- !u!1001 &1697992290
 PrefabInstance:
   m_ObjectHideFlags: 0

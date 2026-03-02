@@ -1,4 +1,6 @@
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HuntPlayer : MonoBehaviour
 {
@@ -35,13 +37,18 @@ public class HuntPlayer : MonoBehaviour
         Vector2 directionToPlayer = player.transform.position - transform.position;
         float distanceToPlayer = directionToPlayer.magnitude;
 
+
+
         Vector2 moveDirection = Vector2.zero;
 
         switch (movementType)
         {
             case MovementType.Chase:
                 if (distanceToPlayer > targetDistance)
+                {
                     moveDirection = directionToPlayer.normalized;
+                    animate(moveDirection);
+                }
                 break;
 
             case MovementType.Flee:
@@ -54,11 +61,24 @@ public class HuntPlayer : MonoBehaviour
                     moveDirection = directionToPlayer.normalized;
                 else if (distanceToPlayer < targetDistance)
                     moveDirection = -directionToPlayer.normalized;
+                animate(directionToPlayer);
                 break;
         }
 
         if (!kb.isBeingKnockedBack)
             transform.position += (Vector3)(moveDirection * moveSpeed * Time.fixedDeltaTime);
+
+        
+    }
+    void animate(Vector2 vec)
+    {
+        // Update animation parameters
+        anim.SetFloat("X", vec.x);
+        anim.SetFloat("Y", vec.y);
     }
 
+    public void Attack()
+    {
+        anim.SetTrigger("Attack");
+    }
 }

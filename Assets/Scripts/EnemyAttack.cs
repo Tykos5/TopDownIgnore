@@ -5,8 +5,10 @@ public class EnemyAttack : MonoBehaviour
 {
     GameObject player;
 
-    ZombieAnimator zombieAnim;
+    //ZombieAnimator zombieAnim;
+    //HuntPlayer huntPlayer;
     PlayerHealth playerHealth;
+    private Animator anim;
 
     public float attackRange = 1.5f;
     public float attackDamage = 1f;
@@ -20,7 +22,10 @@ public class EnemyAttack : MonoBehaviour
 
     private void Start()
     {
-        zombieAnim = GetComponent<ZombieAnimator>();
+        //    zombieAnim = GetComponent<ZombieAnimator>();
+        //    huntPlayer = GetComponent<HuntPlayer>();
+
+        anim = GetComponent<Animator>();
 
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -56,7 +61,9 @@ public class EnemyAttack : MonoBehaviour
     {
         canAttack = false;
 
-        zombieAnim.Attack();
+        anim.SetTrigger("Attack");
+
+        //zombieAnim.Attack();
 
         //Debug.Log("Enemy attacks!");
 
