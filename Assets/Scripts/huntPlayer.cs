@@ -76,9 +76,4 @@ public class HuntPlayer : MonoBehaviour
         anim.SetFloat("X", vec.x);
         anim.SetFloat("Y", vec.y);
     }
-
-    public void Attack()
-    {
-        anim.SetTrigger("Attack");
-    }
 }

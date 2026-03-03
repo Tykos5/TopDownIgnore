@@ -3446,11 +3446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7891247483687833563, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.44734
+      value: 5.42
       objectReference: {fileID: 0}
     - target: {fileID: 7891247483687833563, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.64055
+      value: 34.17
       objectReference: {fileID: 0}
     - target: {fileID: 7891247483687833563, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3942,11 +3942,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6404024597675216540, guid: b72fb71e8fea52d40b07d9d7c22dd14f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.44734
+      value: 5.42
       objectReference: {fileID: 0}
     - target: {fileID: 6404024597675216540, guid: b72fb71e8fea52d40b07d9d7c22dd14f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.64055
+      value: 34.17
       objectReference: {fileID: 0}
     - target: {fileID: 6404024597675216540, guid: b72fb71e8fea52d40b07d9d7c22dd14f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11034,7 +11034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e34e41250b6f0e409417ed274acb094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Knockback
-  knockbackForce: 5
+  knockbackForce: 7
   knockbackDuration: 0.2
 --- !u!114 &1631914326
 MonoBehaviour:
@@ -11107,7 +11107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f0676f6164a4b48a90e7ddbc448653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  attackRange: 1
+  attackRange: 2
   attackDamage: 1
   attackCD: 2
 --- !u!1001 &1697992290
@@ -11120,11 +11120,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1644179646644027552, guid: b58f9083a2d9b034fa88ea74549d3062, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.44734
+      value: 5.42
       objectReference: {fileID: 0}
     - target: {fileID: 1644179646644027552, guid: b58f9083a2d9b034fa88ea74549d3062, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.64055
+      value: 34.17
       objectReference: {fileID: 0}
     - target: {fileID: 1644179646644027552, guid: b58f9083a2d9b034fa88ea74549d3062, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11233,6 +11233,14 @@ PrefabInstance:
     - target: {fileID: 1172869700203290052, guid: 3a196e86c5c2120419e60c2b328c2091, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521642851874681661, guid: 3a196e86c5c2120419e60c2b328c2091, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521642851874681661, guid: 3a196e86c5c2120419e60c2b328c2091, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 5585009591462401788, guid: 3a196e86c5c2120419e60c2b328c2091, type: 3}
       propertyPath: m_Name

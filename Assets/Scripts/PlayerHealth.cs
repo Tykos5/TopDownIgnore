@@ -29,12 +29,6 @@ public class PlayerHealth : MonoBehaviour
             healthBar = FindFirstObjectByType<HealthBar>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void TakeDamage(float damage, Vector2 direction)
     {
         if (!canTakeDamage)

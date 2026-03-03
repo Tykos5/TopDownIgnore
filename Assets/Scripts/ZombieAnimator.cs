@@ -19,20 +19,20 @@ public class ZombieAnimator : MonoBehaviour
         enemyAI = GetComponentInParent<EnemyAI>();
         huntPlayer = GetComponentInParent<HuntPlayer>();
     }
-    void Update()
+    void FixedUpdate()
     {
         if (enemyAI != null)
         {
-            Vector2 dir = enemyAI.MoveDirection;
-            float idleDis = enemyAI.idleDistance;
+            dir = enemyAI.MoveDirection;
+            idleDis = enemyAI.idleDistance;
 
-            float distanceToTarget = Vector2.Distance(enemyAI.transform.position, enemyAI.canChase ? (Vector3)enemyAI.target.position : (Vector3)enemyAI.startPos);
+            distanceToTarget = Vector2.Distance(enemyAI.transform.position, enemyAI.canChase ? (Vector3)enemyAI.target.position : (Vector3)enemyAI.startPos);
         }
         else if (huntPlayer != null)
         {
             Vector2 dir = huntPlayer.transform.position - transform.position;
-            float idleDis = huntPlayer.targetDistance;
-            float distanceToTarget = Vector2.Distance(huntPlayer.transform.position, transform.position);
+            idleDis = huntPlayer.targetDistance;
+            distanceToTarget = Vector2.Distance(huntPlayer.transform.position, transform.position);
         }
         else
         {
