@@ -103,7 +103,6 @@ public class mobAttack : MonoBehaviour
 
         if (currentDistance.magnitude <= attackRange && canHit)
         {
-
             direction = (player.transform.position - transform.position).normalized;
 
             //Debug.Log("Attacking player");
@@ -131,7 +130,9 @@ public class mobAttack : MonoBehaviour
             GameObject intProjectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
 
             //Shoot
-            intProjectile.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed, ForceMode2D.Impulse);
+            Rigidbody2D rb = intProjectile.GetComponent<Rigidbody2D>();
+            rb.linearVelocity = direction * projectileSpeed;
+
             Destroy(intProjectile, projectileDuration);
             StartCoroutine(AttackCD());
         }

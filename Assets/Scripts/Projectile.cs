@@ -6,6 +6,9 @@ public class Projectile : MonoBehaviour
 
     public Rigidbody2D attackOrigin;
 
+    private Rigidbody2D rb;
+
+
 
 
 
@@ -17,9 +20,29 @@ public class Projectile : MonoBehaviour
 
     public projectileType projectiletype;
 
+    private Vector2 lastVelocity;
+
+
     void Start()
     {
         attackOrigin = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // capture velocity BEFORE collision resolution
+    private void FixedUpdate()
+    {
+        if (projectiletype == projectileType.reaperOrb)
+        {
+           
+            if (rb.linearVelocity.sqrMagnitude > 0.01f)
+                lastVelocity = rb.linearVelocity;
+
+            //slowly rotate the orb
+            rb.rotation += 5f;
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -60,27 +83,6 @@ public class Projectile : MonoBehaviour
                     }
                 }
                 break;
-            //case projectileType.reaperOrb:
-            //    {
-            //        if (collision.CompareTag("Player"))
-            //            {
-            //            //Damage the player
-            //            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-            //            if (playerHealth != null)
-            //            {
-            //                playerHealth.TakeDamage(damage, attackOrigin.transform.position);
-            //            }
-            //            //Destroy the projectile
-            //            Destroy(gameObject);
-            //        }
-
-            //        else if (collision.CompareTag("Wall"))
-            //        {
-            //            //Bounce the projectile off the wall
-                        
-            //        }
-            //    }
-            //    break;
         }
         
 
@@ -97,7 +99,8 @@ public class Projectile : MonoBehaviour
             PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
 
             if (playerHealth == null)
-            {                 Debug.LogWarning("PlayerHealth component not found on collided object.");
+            {
+                Debug.LogWarning("PlayerHealth component not found on collided object.");
                 return;
             }
 
@@ -113,15 +116,20 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        // Bounce off wall
         if (collision.collider.CompareTag("Wall"))
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            ContactPoint2D contact = collision.GetContact(0);
+            Vector2 normal = contact.normal;
 
-            Vector2 normal = collision.contacts[0].normal;
-            Vector2 newDirection = Vector2.Reflect(rb.linearVelocity.normalized, normal);
+            // Use lastVelocity instead of rb.velocity — it's clean pre-collision data
+            float speed = lastVelocity.magnitude;
+            Vector2 newDirection = Vector2.Reflect(lastVelocity.normalized, normal);
 
-            rb.linearVelocity = newDirection * rb.linearVelocity.magnitude;
+            // Push out along normal to escape the wall geometry
+            transform.position += (Vector3)(normal * 0.05f);
+
+            rb.linearVelocity = newDirection * speed;
         }
     }
 }
