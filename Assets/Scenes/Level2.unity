@@ -3092,7 +3092,8 @@ GameObject:
   - component: {fileID: 700379505}
   - component: {fileID: 700379504}
   - component: {fileID: 700379507}
-  m_Layer: 0
+  - component: {fileID: 700379508}
+  m_Layer: 7
   m_Name: Rango
   m_TagString: Reaper
   m_Icon: {fileID: 0}
@@ -3308,6 +3309,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &700379508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700379498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f0676f6164a4b48a90e7ddbc448653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::mobAttack
+  attackRange: 1
+  attackDamage: 1
+  attackCD: 2
+  hitCD: 0.5
+  canHit: 0
+  projectileDuration: 5
+  projectileSpeed: 3
+  projectileSpawnDistance: 0.5
+  projectilePrefab: {fileID: 1898677571431711783, guid: 7610ce371ad1e3a488d8366e768e5e4f, type: 3}
+  attacktype: 1
 --- !u!1 &711141875
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,7 +10902,7 @@ GameObject:
   - component: {fileID: 1631914325}
   - component: {fileID: 1631914328}
   - component: {fileID: 1631914329}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Melle
   m_TagString: Reaper
   m_Icon: {fileID: 0}
@@ -11107,9 +11130,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f0676f6164a4b48a90e7ddbc448653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  attackRange: 2
+  attackRange: 1.5
   attackDamage: 1
-  attackCD: 2
+  attackCD: 1.5
+  hitCD: 0.5
+  canHit: 1
+  projectileDuration: 5
+  projectileSpeed: 3
+  projectileSpawnDistance: 0.5
+  projectilePrefab: {fileID: 0}
+  attacktype: 0
 --- !u!1001 &1697992290
 PrefabInstance:
   m_ObjectHideFlags: 0

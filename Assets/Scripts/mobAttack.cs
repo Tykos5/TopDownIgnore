@@ -1,8 +1,9 @@
+using System.Collections;
+using System.Dynamic;
+using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections;
-using Unity.VisualScripting;
-using System.Dynamic;
 
 public class mobAttack : MonoBehaviour
 {
@@ -11,9 +12,17 @@ public class mobAttack : MonoBehaviour
     PlayerHealth playerHealth;
     private Animator anim;
 
+
     public float attackRange = 1f;
     public float attackDamage = 1f;
     public float attackCD = 2f;
+    public float hitCD = 0.5f;
+    public bool canHit = true;
+
+    public float projectileDuration = 5f;
+    public float projectileSpeed = 3f;
+    public float projectileSpawnDistance = 0.5f;
+    public GameObject projectilePrefab;
 
     private bool canAttack = true;
     private Transform target;
@@ -21,6 +30,13 @@ public class mobAttack : MonoBehaviour
 
     private Vector2 currentDistance;
 
+    public enum attackType
+    {
+        Melee,
+        Ranged
+    }
+
+    public attackType attacktype;
 
     void Start()
     {
@@ -33,28 +49,47 @@ public class mobAttack : MonoBehaviour
     {
         currentDistance = player.transform.position - transform.position;
 
-        if (currentDistance.magnitude <= attackRange && canAttack)
+        switch (attacktype)
         {
-           TryAttack();
+            case attackType.Melee:
+                {
+                    //Debug.Log("Melee attack logic");  
+                    if (currentDistance.magnitude <= attackRange && canAttack)
+                    {
+                        TryAttack();
+                    }
+                }
+                break;
+
+
+            case attackType.Ranged:
+                {
+                    if (canAttack)
+                    {
+                        RangedAttack();
+                    }
+                }
+                break;
         }
+        
     }
 
     void TryAttack()
     {
         canAttack = false;
-        Debug.Log("Trying to attack");
+        //Debug.Log("Trying to attack");
         anim.SetTrigger("Attack");
         StartCoroutine(AttackCD());
     }
 
     private IEnumerator AttackCD()
     {
-        Debug.Log("Attack CD started");
+        //Debug.Log("Attack CD started");
         yield return new WaitForSeconds(attackCD);
         canAttack = true;
     }
 
-    private void Attack()
+    private void MeeleAttack()
     {
 
         playerHealth = player.GetComponent<PlayerHealth>();
@@ -65,11 +100,40 @@ public class mobAttack : MonoBehaviour
             return;
         }
 
-        if (currentDistance.magnitude <= attackRange)
+
+        if (currentDistance.magnitude <= attackRange && canHit)
         {
-            Debug.Log("Attacking player");
-            playerHealth.TakeDamage(attackDamage, transform.position);
+
+            direction = (player.transform.position - transform.position).normalized;
+
+            //Debug.Log("Attacking player");
+            playerHealth.TakeDamage(attackDamage, direction);
         }
-        
+        StartCoroutine(HitCD());
+    }
+
+    private IEnumerator HitCD()
+    {
+        canHit = false;
+        yield return new WaitForSeconds(hitCD);
+        canHit = true;
+    }
+
+    public void RangedAttack()
+    {
+        if (canAttack)
+        {
+            direction = (player.transform.position - transform.position).normalized;
+
+            canAttack = false;
+            Debug.Log("projectile attack initiated");
+            Vector2 spawnPosition = (Vector2)transform.position + direction * projectileSpawnDistance;
+            GameObject intProjectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+            //Shoot
+            intProjectile.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed, ForceMode2D.Impulse);
+            Destroy(intProjectile, projectileDuration);
+            StartCoroutine(AttackCD());
+        }
     }
 }
