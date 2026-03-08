@@ -2580,8 +2580,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f3af107e262a44e848f7b57b66d8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  meeleReaper: {fileID: 1631914320}
-  rangedReaper: {fileID: 700379498}
+  enemyType: 1
+  meleeReapers:
+  - {fileID: 1631914320}
+  rangedReapers:
+  - {fileID: 700379498}
+  zombies: []
 --- !u!1 &475553126
 GameObject:
   m_ObjectHideFlags: 0

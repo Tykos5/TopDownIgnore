@@ -13,7 +13,7 @@ public class HuntPlayer : MonoBehaviour
     public float targetDistance = 5f;
 
 
-    public enum MovementType
+    public enum  MovementType
     {
         Chase,      // Move toward player
         Flee,       // Move away from player
