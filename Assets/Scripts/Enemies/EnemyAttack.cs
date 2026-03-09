@@ -22,8 +22,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void Start()
     {
-        //    zombieAnim = GetComponent<ZombieAnimator>();
-        //    huntPlayer = GetComponent<HuntPlayer>();
+        attackDamage = StaticData.zombieDamage; // Get the zombie damage from static data
 
         anim = GetComponent<Animator>();
 

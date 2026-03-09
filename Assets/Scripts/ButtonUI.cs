@@ -15,7 +15,36 @@ public class ButtonUI : MonoBehaviour
     // Swap to level 1
     public void NewGameButton()
     {
+        // Set the difficulty in static data
         StaticData.difficulty = difficulty;
+
+        // Set zombie damage based on difficulty
+        switch (difficulty)
+        {
+            case 0:
+                StaticData.zombieDamage = 1;
+                StaticData.zombieHealth = 3;
+                break;
+            case 1:
+                StaticData.zombieDamage = 1;
+                StaticData.zombieHealth = 4;
+                break;
+            case 2:
+                StaticData.zombieDamage = 2;
+                StaticData.zombieHealth = 5;
+                break;
+            case 3:
+                StaticData.zombieDamage = 3;
+                StaticData.zombieHealth = 6;
+                break;
+            case 4:
+                StaticData.zombieDamage = 100;
+                StaticData.zombieHealth = 7;
+                break;
+        }
+
+        
+
         SceneManager.LoadScene("Level1");
     }
 

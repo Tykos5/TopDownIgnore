@@ -27,11 +27,21 @@ public class SpawnEnemy : MonoBehaviour
     [Header("Zombie Enemies")]
     public GameObject[] zombies;
 
+    public int zombiesSpawned; // To track how many zombies spawned
+    public int zombiesKilled; // To track how many zombies killed
+
+    public GameObject[] doorSpawn; // Array to hold all game objects for easy management
+
 
     void Start()
     {
+        zombiesKilled = 0; // Initialize zombies killed to 0
+
         difficulty = StaticData.difficulty; // Get the difficulty from the static data
 
+        // Disable all enemies at the start of the level
+
+        // Reaper disable
         if (enemyType == EnemyType.Reaper) 
         { 
             foreach (GameObject meleeReaper in meleeReapers)
@@ -46,6 +56,7 @@ public class SpawnEnemy : MonoBehaviour
             }
         }
 
+        // Zombie disable
         else if (enemyType == EnemyType.Zombie)
         {
             foreach (GameObject zombie in zombies)
@@ -56,9 +67,56 @@ public class SpawnEnemy : MonoBehaviour
         }
 
 
+        if (currentLevel == level.Level2 && enemyType == EnemyType.Zombie)
+        {
+            switch (difficulty)
+            {
+                case 0: // Easy
+                    for (int i = 0; i < 2; i++)
+                    {
+                        zombies[i].SetActive(true);
+                    }
+                    zombiesSpawned = 2;
+                    break;
+
+                case 1: // Medium
+                    for (int i = 0; i < 4; i++)
+                    {
+                        zombies[i].SetActive(true);
+                    }
+                    zombiesSpawned = 4;
+                    break;
+
+                case 2: // Hard
+                    for (int i = 0; i < 6; i++)
+                    {
+                        zombies[i].SetActive(true);
+                    }
+                    zombiesSpawned = 6;
+                    break;
+
+                case 3: // Insane
+                    for (int i = 0; i < 8; i++)
+                    {
+                        zombies[i].SetActive(true);
+                    }
+                    zombiesSpawned = 8;
+                    break;
+
+                case 4:
+                    for (int i = 0; i < 8; i++)
+                    {
+                        zombies[i].SetActive(true);
+                    }
+                    zombiesSpawned = 8;
+                    break;
+            }
+        }
+
     }
  
     private bool activated = false; // To ensure enemies are spawned only once
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -92,6 +150,7 @@ public class SpawnEnemy : MonoBehaviour
                             {
                                 zombies[i].SetActive(true);
                             }
+                            zombiesSpawned = 1;
                             break;
 
                         case 1: // Medium
@@ -99,6 +158,7 @@ public class SpawnEnemy : MonoBehaviour
                             {
                                 zombies[i].SetActive(true);
                             }
+                            zombiesSpawned = 3;
                             break;
 
                         case 2: // Hard
@@ -106,6 +166,7 @@ public class SpawnEnemy : MonoBehaviour
                             {
                                 zombies[i].SetActive(true);
                             }
+                            zombiesSpawned = 5;
                             break;
 
                         case 3: // Insane
@@ -113,6 +174,7 @@ public class SpawnEnemy : MonoBehaviour
                             {
                                 zombies[i].SetActive(true);
                             }
+                            zombiesSpawned = 7;
                             break;
 
                         case 4:
@@ -120,10 +182,29 @@ public class SpawnEnemy : MonoBehaviour
                             {
                                 zombies[i].SetActive(true);
                             }
+                            zombiesSpawned = 7;
                             break;
                     }
                 }
             }
+        }
+    }
+
+    public void zombieKilled()
+    {
+        zombiesKilled++;
+
+        if (zombiesKilled >= zombiesSpawned)
+        {
+            // All zombies have been killed, you can perform any additional actions here
+            Debug.Log("All zombies have been killed!");
+
+            if (currentLevel == level.Level1)
+            {
+                doorSpawn[0].SetActive(true); // Enable the door
+                doorSpawn[1].SetActive(false); // Disable the wall
+            }
+            
         }
     }
 }

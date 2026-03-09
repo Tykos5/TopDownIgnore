@@ -45,6 +45,8 @@ public class EnemyAI : MonoBehaviour
 
         startPos = transform.position;
 
+        maxHealth = StaticData.zombieHealth; // Get the zombie health from static data
+
         health = maxHealth;
     }
 
