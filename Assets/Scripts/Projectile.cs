@@ -27,6 +27,11 @@ public class Projectile : MonoBehaviour
     {
         attackOrigin = GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (projectiletype == projectileType.reaperOrb)
+        {
+            damage = StaticData.rangedReaperDamage;
+        }
     }
 
     // capture velocity BEFORE collision resolution

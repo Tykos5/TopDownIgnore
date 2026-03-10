@@ -42,6 +42,11 @@ public class mobAttack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+
+        if (attacktype == attackType.Melee)
+        {
+            attackDamage = StaticData.meleeReaperDamage;
+        }
     }
 
    
