@@ -12,7 +12,6 @@ public class PlayerHealth : MonoBehaviour
 
     public HealthBar healthBar;
 
-    [SerializeField] float maxHealth = 10f;
     public float health;
     private bool canTakeDamage;
     private float damageCooldown = 0.5f;
@@ -20,13 +19,15 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = maxHealth;
+        health = StaticData.playerHealth;
         rb = GetComponent<Rigidbody2D>();
         kb = GetComponent<Knockback>();
         canTakeDamage = true;
 
         if (healthBar == null)
             healthBar = FindFirstObjectByType<HealthBar>();
+
+        healthBar.SetHealth((int)health); // syncs UI to actual health
     }
 
     public void TakeDamage(float damage, Vector2 direction)
@@ -68,5 +69,7 @@ public class PlayerHealth : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         healthBar = FindFirstObjectByType<HealthBar>();
+        if (healthBar != null)
+            healthBar.SetHealth((int)health);
     }
 }

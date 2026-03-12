@@ -22,8 +22,30 @@ public class enemyHealth : MonoBehaviour
     {
         kb = GetComponent<Knockback>();
         rb = GetComponent<Rigidbody2D>();
+
+        // get max health from static data based on enemy type
+        if (enemyType == EnemyType.Zombie)
+        {
+            maxHealth = StaticData.zombieHealth;
+        }
+        else if (enemyType == EnemyType.MeleeReaper)
+        {
+            maxHealth = StaticData.meleeReaperHealth; 
+        }
+        else if (enemyType == EnemyType.RangedReaper)
+        {
+            maxHealth = StaticData.rangedReaperHealth; 
+        }
         health = maxHealth;
     }
+
+    public enum EnemyType
+    {
+        Zombie,
+        MeleeReaper,
+        RangedReaper
+    }
+    public EnemyType enemyType;
 
 
     public void TakeDamage(float damage, Vector2 hitSource)

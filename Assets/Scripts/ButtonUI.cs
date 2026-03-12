@@ -21,25 +21,60 @@ public class ButtonUI : MonoBehaviour
         // Set zombie damage based on difficulty
         switch (difficulty)
         {
-            case 0:
+            case 0:                 // Easy 
                 StaticData.zombieDamage = 1;
                 StaticData.zombieHealth = 3;
+
+                StaticData.meleeReaperDamage = 1;
+                StaticData.meleeReaperHealth = 4;
+
+                StaticData.rangedReaperDamage = 1;
+                StaticData.rangedReaperHealth = 3;
+                StaticData.orbDespawnTime = 5;
                 break;
-            case 1:
+            case 1:                 // Medium
                 StaticData.zombieDamage = 1;
                 StaticData.zombieHealth = 4;
+
+                StaticData.meleeReaperDamage = 1;
+                StaticData.meleeReaperHealth = 6;
+
+                StaticData.rangedReaperDamage = 1;
+                StaticData.rangedReaperHealth = 4;
+                StaticData.orbDespawnTime = 5;
                 break;
-            case 2:
+            case 2:                 // Hard
                 StaticData.zombieDamage = 2;
                 StaticData.zombieHealth = 5;
+                 
+                StaticData.meleeReaperDamage = 2;
+                StaticData.meleeReaperHealth = 8;
+
+                StaticData.rangedReaperDamage = 2;
+                StaticData.rangedReaperHealth = 5;
+                StaticData.orbDespawnTime = 7;
                 break;
-            case 3:
+            case 3:                 // Expert
                 StaticData.zombieDamage = 3;
                 StaticData.zombieHealth = 6;
+
+                StaticData.meleeReaperDamage = 3;
+                StaticData.meleeReaperHealth = 8;
+
+                StaticData.rangedReaperDamage = 4;
+                StaticData.rangedReaperHealth = 5;
+                StaticData.orbDespawnTime = 8;
                 break;
-            case 4:
+            case 4:                 // Nightmare
                 StaticData.zombieDamage = 100;
                 StaticData.zombieHealth = 7;
+
+                StaticData.meleeReaperDamage = 100;
+                StaticData.meleeReaperHealth = 10;
+
+                StaticData.rangedReaperDamage = 100;
+                StaticData.rangedReaperHealth = 7;
+                StaticData.orbDespawnTime = 10;
                 break;
         }
 

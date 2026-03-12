@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnEnemy : MonoBehaviour
 {
@@ -30,7 +31,11 @@ public class SpawnEnemy : MonoBehaviour
     public int zombiesSpawned; // To track how many zombies spawned
     public int zombiesKilled; // To track how many zombies killed
 
+    public int reapersKilled; // To track how many reapers killed
+
     public GameObject[] doorSpawn; // Array to hold all game objects for easy management
+
+    public UnityEvent onEnemyDeath;
 
 
     void Start()
@@ -95,7 +100,7 @@ public class SpawnEnemy : MonoBehaviour
                     zombiesSpawned = 6;
                     break;
 
-                case 3: // Insane
+                case 3: // Extreme
                     for (int i = 0; i < 8; i++)
                     {
                         zombies[i].SetActive(true);
@@ -103,7 +108,7 @@ public class SpawnEnemy : MonoBehaviour
                     zombiesSpawned = 8;
                     break;
 
-                case 4:
+                case 4: // Nightmare
                     for (int i = 0; i < 8; i++)
                     {
                         zombies[i].SetActive(true);
@@ -140,6 +145,7 @@ public class SpawnEnemy : MonoBehaviour
 
             else if (enemyType == EnemyType.Zombie)
             {
+                // Level 1 spawning mechanics
                 if (currentLevel == level.Level1)
                 {
 
@@ -185,7 +191,7 @@ public class SpawnEnemy : MonoBehaviour
                             zombiesSpawned = 7;
                             break;
                     }
-                }
+                } 
             }
         }
     }
@@ -205,6 +211,17 @@ public class SpawnEnemy : MonoBehaviour
                 doorSpawn[1].SetActive(false); // Disable the wall
             }
             
+        }
+    }
+
+    public void reaperKilled()
+    {
+        reapersKilled++;
+
+        if (reapersKilled == 2 && currentLevel == level.Level2)
+        {
+            doorSpawn[0].SetActive(true); // Enable the door
+            doorSpawn[1].SetActive(false); // Disable the wall
         }
     }
 }
