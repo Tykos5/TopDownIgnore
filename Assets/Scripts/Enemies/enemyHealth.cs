@@ -36,6 +36,10 @@ public class enemyHealth : MonoBehaviour
         {
             maxHealth = StaticData.rangedReaperHealth; 
         }
+        else if (enemyType == EnemyType.RockBoss)
+        {
+            maxHealth = StaticData.rockBossHealth;
+        }
         health = maxHealth;
     }
 
@@ -43,12 +47,13 @@ public class enemyHealth : MonoBehaviour
     {
         Zombie,
         MeleeReaper,
-        RangedReaper
+        RangedReaper,
+        RockBoss
     }
     public EnemyType enemyType;
 
 
-    public void TakeDamage(float damage, Vector2 hitSource)
+    public void TakeDamage(float damage, Vector2 hitSource) 
     {
         if (canTakeDamage)
         {

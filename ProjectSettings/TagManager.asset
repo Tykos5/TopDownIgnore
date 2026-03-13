@@ -12,6 +12,7 @@ TagManager:
   - Nextlevel
   - Wall
   - Reaper
+  - RockBoss
   layers:
   - Default
   - TransparentFX

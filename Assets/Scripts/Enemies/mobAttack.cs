@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Dynamic;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
+using Unity.Hierarchy;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class mobAttack : MonoBehaviour
 {
@@ -14,10 +11,18 @@ public class mobAttack : MonoBehaviour
 
 
     public float attackRange = 1f;
-    public float attackDamage = 1f;
+    public float meleeDamage = 1f;
+    public float rangedDamage = 1f;
     public float attackCD = 2f;
     public float hitCD = 0.5f;
     public bool canHit = true;
+
+    public float RockBossRangedCD = 5f;
+    private bool canRanged = false;
+
+    public bool isAttacking = false;
+    public bool isShooting = false;
+    public bool canRange = true;
 
     public float projectileDuration = 5f;
     public float projectileSpeed = 3f;
@@ -33,7 +38,8 @@ public class mobAttack : MonoBehaviour
     public enum attackType
     {
         Melee,
-        Ranged
+        Ranged,
+        RockBoss
     }
 
     public attackType attacktype;
@@ -45,11 +51,26 @@ public class mobAttack : MonoBehaviour
 
         if (attacktype == attackType.Melee)
         {
-            attackDamage = StaticData.meleeReaperDamage;
+            meleeDamage = StaticData.meleeReaperDamage;
         }
+
+        if (attacktype == attackType.Ranged)
+        {
+            rangedDamage = StaticData.rangedReaperDamage;
+            projectileDuration = StaticData.orbDespawnTime;
+        }
+
+        if (attacktype == attackType.RockBoss)
+        {
+            meleeDamage = StaticData.RockBossMeleeDMG;
+            rangedDamage = StaticData.RockBossRangedDMG;
+            projectileDuration = StaticData.RockBossOrbDespawnTime;
+            RockBossRangedCD = StaticData.RockBossRangedCD;
+        }
+
+
     }
 
-   
     void FixedUpdate()
     {
         currentDistance = player.transform.position - transform.position;
@@ -75,14 +96,32 @@ public class mobAttack : MonoBehaviour
                     }
                 }
                 break;
+
+            case attackType.RockBoss:
+                {
+                    if (!canAttack) break; // mid-attack, do nothing
+
+                    if (!canRanged) // ranged timer finished, takes priority
+                    {
+                        canAttack = false;
+                        canRanged = true; // reset until next CD
+                        anim.SetTrigger("RangedAttack");
+                        StartCoroutine(RockBossRangedCDTimer());
+                    }
+                    else if (currentDistance.magnitude <= attackRange)
+                    {
+                        Debug.Log("Trying melee, canAttack: " + canAttack + " canRanged: " + canRanged);
+                        TryAttack(); // melee when in range
+                    }
+                }
+                break;
         }
-        
     }
 
     void TryAttack()
     {
-        canAttack = false;
-        //Debug.Log("Trying to attack");
+        Debug.Log("Trying to attack");
+
         anim.SetTrigger("Attack");
         StartCoroutine(AttackCD());
     }
@@ -111,7 +150,7 @@ public class mobAttack : MonoBehaviour
             direction = (player.transform.position - transform.position).normalized;
 
             //Debug.Log("Attacking player");
-            playerHealth.TakeDamage(attackDamage, direction);
+            playerHealth.TakeDamage(meleeDamage, direction);
         }
         StartCoroutine(HitCD());
     }
@@ -125,7 +164,7 @@ public class mobAttack : MonoBehaviour
 
     public void RangedAttack()
     {
-        if (canAttack)
+        if (canAttack && attacktype == attackType.Ranged)
         {
             direction = (player.transform.position - transform.position).normalized;
 
@@ -141,5 +180,50 @@ public class mobAttack : MonoBehaviour
             Destroy(intProjectile, projectileDuration);
             StartCoroutine(AttackCD());
         }
+    }
+
+    public void RockBossRangedAttack()
+    {
+        if (attacktype == attackType.RockBoss && canRange)
+        {
+            canRange = false; // prevent multiple calls until CD resets
+
+            Vector2[] diagonals = 
+            {
+                new Vector2(1, 1).normalized,
+                new Vector2(1, -1).normalized,
+                new Vector2(-1, 1).normalized,
+                new Vector2(-1, -1).normalized
+            };
+
+            foreach (Vector2 dir in diagonals)
+            {
+                Vector2 spawnPosition = (Vector2)transform.position + dir * projectileSpawnDistance;
+                GameObject intProjectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+                Rigidbody2D rb = intProjectile.GetComponent<Rigidbody2D>();
+                rb.linearVelocity = dir * projectileSpeed;
+
+                Destroy(intProjectile, projectileDuration);
+            }
+            StartCoroutine(canRangeCD());   
+        } 
+    }
+
+    private IEnumerator canRangeCD()
+    {
+        yield return new WaitForSeconds(1);
+        canRange = true;
+    }
+
+    private IEnumerator RockBossRangedCDTimer()
+    {
+        yield return new WaitForSeconds(RockBossRangedCD);
+        canRanged = false; // signals ranged is ready to fire again
+    }
+
+    public void OnRangedAnimComplete()
+    {
+        canAttack = true; // free to melee again while ranged is still on cooldown
     }
 }

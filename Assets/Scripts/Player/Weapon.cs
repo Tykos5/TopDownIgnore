@@ -32,5 +32,12 @@ public class Weapon : MonoBehaviour
                 HP.TakeDamage(damage, attackOrigin.transform.position);
             }
         }
+        else if (collision.CompareTag("RockBoss"))
+        {
+            if (health != null)
+            {
+                health.TakeDamage(damage, attackOrigin.transform.position);
+            }
+        }
     }
 }

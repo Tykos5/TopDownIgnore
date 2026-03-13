@@ -9,7 +9,7 @@ public class HuntPlayer : MonoBehaviour
 
     private Animator anim;
 
-    public int moveSpeed = 2;
+    public float moveSpeed = 2;
     public float targetDistance = 5f;
 
 

@@ -15,7 +15,8 @@ public class Projectile : MonoBehaviour
     public enum projectileType
     {
         Spear,
-        reaperOrb
+        reaperOrb,
+        rockBossOrb
     }
 
     public projectileType projectiletype;
@@ -31,6 +32,11 @@ public class Projectile : MonoBehaviour
         if (projectiletype == projectileType.reaperOrb)
         {
             damage = StaticData.rangedReaperDamage;
+
+        }
+        else if (projectiletype == projectileType.rockBossOrb)
+        {
+            damage = StaticData.RockBossRangedDMG;
         }
     }
 
@@ -95,7 +101,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (projectiletype != projectileType.reaperOrb)
+        if (projectiletype != projectileType.reaperOrb && projectiletype != projectileType.rockBossOrb)
             return;
 
         // Damage player and destroy

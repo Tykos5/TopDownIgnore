@@ -6,7 +6,7 @@ public class Level1Comp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Level 1 Complete!");
+            Debug.Log("Level Complete!");
             //Go to level 2
             SceneController.instance.NextLevel();
 
