@@ -6,14 +6,15 @@ public class SpawnEnemy : MonoBehaviour
     public enum EnemyType
     { 
         Zombie, 
-        Reaper 
+        Reaper
     }
 
     public enum level
     {
         Level1,
         Level2,
-        Level3
+        Level3,
+        Level4
     }
 
     public int difficulty;
@@ -71,7 +72,7 @@ public class SpawnEnemy : MonoBehaviour
             }
         }
 
-
+        // Zombie spawn L2
         if (currentLevel == level.Level2 && enemyType == EnemyType.Zombie)
         {
             switch (difficulty)
@@ -118,6 +119,18 @@ public class SpawnEnemy : MonoBehaviour
             }
         }
 
+        // Reaper spawn L4
+        if (currentLevel == level.Level4 && enemyType == EnemyType.Reaper)
+        {
+            if (difficulty >= 2) // Spawn reapers for Expert difficulty and above
+            {
+                foreach (GameObject rangedReaper in rangedReapers)
+                {
+                    if (rangedReaper != null)
+                        rangedReaper.SetActive(true); // Enable all ranged reapers
+                }
+            }
+        }
     }
  
     private bool activated = false; // To ensure enemies are spawned only once

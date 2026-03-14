@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 using UnityEngine.Windows.WebCam;
 using UnityEngine.Events;
+using UnityEditor.PackageManager.Requests;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     public UnityEvent onEnemyDeath;
 
+    public ScoreManager scoreManager;
 
     public Vector2 MoveDirection { get; private set; }
 
@@ -147,6 +149,12 @@ public class EnemyAI : MonoBehaviour
     void Die()
     {
         // Implement death logic here
+
+        //Add Score
+
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+        scoreManager.score += 10; // Add 10 points for killing zombie
+
         Debug.Log("Enemy Died");
         Destroy(gameObject);
     }

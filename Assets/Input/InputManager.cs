@@ -18,6 +18,9 @@ public class InputManager : MonoBehaviour
     private InputAction _spearAction;
     public static bool SpearPressed;
 
+    private InputAction _nextSceneAction;
+    public static bool NextScenePressed;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -29,6 +32,8 @@ public class InputManager : MonoBehaviour
         _attackAction = _playerInput.actions["Attack"];
 
         _spearAction = _playerInput.actions["Spear"];
+
+        _nextSceneAction = _playerInput.actions["nextScene"];
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -51,9 +56,11 @@ public class InputManager : MonoBehaviour
         //}
 
         SpearPressed = _spearAction.WasPerformedThisFrame();
-        if (SpearPressed)
-        {
-            //Debug.Log("Spear pressed");
-        }
+        //if (SpearPressed)
+        //{
+        //Debug.Log("Spear pressed");
+        //}
+
+        NextScenePressed = _nextSceneAction.WasPerformedThisFrame();
     }
 }

@@ -38,6 +38,8 @@ public class PlayerAttack : MonoBehaviour
         player = GetComponent<PlayerMovement>();
         Aim = transform.Find("Aim");
         Melee.SetActive(false);
+
+        canSpear = StaticData.canSpear;
     }
 
     public void Attack(string direction)

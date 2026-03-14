@@ -58,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
 
         _rb.linearVelocity = _movement * _moveSpeed;   
+
+        if (InputManager.NextScenePressed)
+        {
+        }
     }
 
     public void Dash()
@@ -125,6 +129,11 @@ public class PlayerMovement : MonoBehaviour
         {
             //Debug.Log("Spear pressed in Player script");
             playerAttack.Spear(direction);
+        }
+
+        if (InputManager.NextScenePressed)
+        {
+            SceneController.instance.NextLevel();
         }
     }
 

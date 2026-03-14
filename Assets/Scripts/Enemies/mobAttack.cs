@@ -17,6 +17,7 @@ public class mobAttack : MonoBehaviour
     public float hitCD = 0.5f;
     public bool canHit = true;
 
+    public float RockBossMeleeDMG = 2f;
     public float RockBossRangedCD = 5f;
     private bool canRanged = false;
 
@@ -99,19 +100,18 @@ public class mobAttack : MonoBehaviour
 
             case attackType.RockBoss:
                 {
-                    if (!canAttack) break; // mid-attack, do nothing
-
-                    if (!canRanged) // ranged timer finished, takes priority
+                    // Ranged takes priority regardless of melee state
+                    if (!canRanged && canAttack)
                     {
                         canAttack = false;
-                        canRanged = true; // reset until next CD
+                        canRanged = true;
                         anim.SetTrigger("RangedAttack");
                         StartCoroutine(RockBossRangedCDTimer());
                     }
-                    else if (currentDistance.magnitude <= attackRange)
+                    else if (currentDistance.magnitude <= attackRange && canAttack && canRanged)
                     {
-                        Debug.Log("Trying melee, canAttack: " + canAttack + " canRanged: " + canRanged);
-                        TryAttack(); // melee when in range
+                        canAttack = false; // add this back
+                        TryAttack();
                     }
                 }
                 break;
@@ -122,6 +122,7 @@ public class mobAttack : MonoBehaviour
     {
         Debug.Log("Trying to attack");
 
+        canAttack = false;
         anim.SetTrigger("Attack");
         StartCoroutine(AttackCD());
     }
@@ -150,7 +151,10 @@ public class mobAttack : MonoBehaviour
             direction = (player.transform.position - transform.position).normalized;
 
             //Debug.Log("Attacking player");
-            playerHealth.TakeDamage(meleeDamage, direction);
+            if (attacktype == attackType.Melee)
+                playerHealth.TakeDamage(meleeDamage, direction);
+            else if (attacktype == attackType.RockBoss)
+                playerHealth.TakeDamage(RockBossMeleeDMG, direction);
         }
         StartCoroutine(HitCD());
     }

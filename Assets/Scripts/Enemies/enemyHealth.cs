@@ -18,6 +18,8 @@ public class enemyHealth : MonoBehaviour
 
     public UnityEvent onEnemyDeath;
 
+    public ScoreManager scoreManager;
+
     void Start()
     {
         kb = GetComponent<Knockback>();
@@ -88,5 +90,27 @@ public class enemyHealth : MonoBehaviour
         // Implement death logic here
         Debug.Log("Enemy Died");
         Destroy(gameObject);
+
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+
+        //Add score to score scoremanager
+        if (scoreManager != null)
+        {
+            switch (enemyType)
+            {
+                case EnemyType.Zombie:
+                    scoreManager.score += 10;
+                    break;
+                case EnemyType.MeleeReaper:
+                    scoreManager.score += 20;
+                    break;
+                case EnemyType.RangedReaper:
+                    scoreManager.score += 15;
+                    break;
+                case EnemyType.RockBoss:
+                    scoreManager.score += 100;
+                    break;
+            }
+        }
     }
 }

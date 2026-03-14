@@ -31,6 +31,12 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rangedReaperDamage = 1;
                 StaticData.rangedReaperHealth = 3;
                 StaticData.orbDespawnTime = 5;
+
+                StaticData.rockBossHealth = 15;
+                StaticData.RockBossMeleeDMG = 1;
+                StaticData.RockBossRangedDMG = 1;
+                StaticData.RockBossOrbDespawnTime = 4;
+                StaticData.RockBossRangedCD = 6;
                 break;
             case 1:                 // Medium
                 StaticData.zombieDamage = 1;
@@ -42,6 +48,12 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rangedReaperDamage = 1;
                 StaticData.rangedReaperHealth = 4;
                 StaticData.orbDespawnTime = 5;
+
+                StaticData.rockBossHealth = 20;
+                StaticData.RockBossMeleeDMG = 2;
+                StaticData.RockBossRangedDMG = 1;
+                StaticData.RockBossOrbDespawnTime = 5;
+                StaticData.RockBossRangedCD = 6;
                 break;
             case 2:                 // Hard
                 StaticData.zombieDamage = 2;
@@ -53,6 +65,12 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rangedReaperDamage = 2;
                 StaticData.rangedReaperHealth = 5;
                 StaticData.orbDespawnTime = 7;
+
+                StaticData.rockBossHealth = 25;
+                StaticData.RockBossMeleeDMG = 3;
+                StaticData.RockBossRangedDMG = 2;
+                StaticData.RockBossOrbDespawnTime = 8;
+                StaticData.RockBossRangedCD = 6;
                 break;
             case 3:                 // Expert
                 StaticData.zombieDamage = 3;
@@ -64,6 +82,12 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rangedReaperDamage = 4;
                 StaticData.rangedReaperHealth = 5;
                 StaticData.orbDespawnTime = 8;
+
+                StaticData.rockBossHealth = 30;
+                StaticData.RockBossMeleeDMG = 3;
+                StaticData.RockBossRangedDMG = 2;
+                StaticData.RockBossOrbDespawnTime = 10;
+                StaticData.RockBossRangedCD = 4.5f;
                 break;
             case 4:                 // Nightmare
                 StaticData.zombieDamage = 100;
@@ -75,6 +99,12 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rangedReaperDamage = 100;
                 StaticData.rangedReaperHealth = 7;
                 StaticData.orbDespawnTime = 10;
+
+                StaticData.rockBossHealth = 30;
+                StaticData.RockBossMeleeDMG = 100;
+                StaticData.RockBossRangedDMG = 100;
+                StaticData.RockBossOrbDespawnTime = 10;
+                StaticData.RockBossRangedCD = 4.5f;
                 break;
         }
 
@@ -123,10 +153,5 @@ public class ButtonUI : MonoBehaviour
     public void SetDifficulty(int diff)
     {
         difficulty = diff;
-    }
-
-    void Update()
-    {
-
     }
 }

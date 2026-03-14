@@ -370,7 +370,6 @@ MonoBehaviour:
   dashCooldown: 0.6
   anim: {fileID: 809827213625485827}
   playerAttack: {fileID: 4959447652777591729}
-  zombie: {fileID: 0}
 --- !u!114 &4959447652777591729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +387,12 @@ MonoBehaviour:
   attackOffset: 1
   attackDuration: 0.3
   Melee: {fileID: 5449359943143709602}
+  Aim: {fileID: 0}
+  SpearPrefab: {fileID: 7198237989550134243, guid: c3dafdb9f86571840b713e5b5c32a94d, type: 3}
+  SpearSpeed: 10
+  SpearCooldown: 2
+  canSpear: 0
+  dir: {x: 0, y: 0}
 --- !u!95 &809827213625485827
 Animator:
   serializedVersion: 7
@@ -423,7 +428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   healthBar: {fileID: 0}
-  maxHealth: 10
   health: 10
 --- !u!114 &5833102216464623840
 MonoBehaviour:

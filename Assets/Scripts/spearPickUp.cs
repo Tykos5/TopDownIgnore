@@ -13,6 +13,7 @@ public class spearPickUp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            StaticData.canSpear = true; // Update static data to indicate the player can use the spear
             Destroy(gameObject); // Remove the spear from the scene
             playerAttack.canSpear = true; // Allow the player to use the spear
         }

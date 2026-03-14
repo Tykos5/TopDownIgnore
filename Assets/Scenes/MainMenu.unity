@@ -340,6 +340,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 642636954432612121, guid: 0766490aa2be29144b5dfcbeb9d1a304, type: 3}
+      propertyPath: difficulty
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 642636954432612121, guid: 0766490aa2be29144b5dfcbeb9d1a304, type: 3}
       propertyPath: difficultyText
       value: 
       objectReference: {fileID: 1220839346}
