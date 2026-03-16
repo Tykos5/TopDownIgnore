@@ -17,6 +17,8 @@ public class SpawnEnemy : MonoBehaviour
         Level4
     }
 
+    public GameObject removeText; 
+
     public int difficulty;
 
     public level currentLevel;
@@ -38,6 +40,9 @@ public class SpawnEnemy : MonoBehaviour
 
     public UnityEvent onEnemyDeath;
 
+    public Pointer pointer;
+    public Transform secondTarget; // The second target for the pointer to point towards
+
 
     void Start()
     {
@@ -48,8 +53,8 @@ public class SpawnEnemy : MonoBehaviour
         // Disable all enemies at the start of the level
 
         // Reaper disable
-        if (enemyType == EnemyType.Reaper) 
-        { 
+        if (enemyType == EnemyType.Reaper)
+        {
             foreach (GameObject meleeReaper in meleeReapers)
             {
                 if (meleeReaper != null)
@@ -131,8 +136,24 @@ public class SpawnEnemy : MonoBehaviour
                 }
             }
         }
+
+        // Disable the pointer for level 1
+        if (currentLevel == level.Level1)
+        {
+            doorSpawn[2].SetActive(false);
+        }
+
+        if (currentLevel == level.Level2 && enemyType == EnemyType.Zombie)
+        {
+            doorSpawn[2].SetActive(false);
+        }
+
+        if (currentLevel == level.Level2)
+        {
+            removeText.SetActive(false); // Dissable the tutorialtext for level 2
+        }
     }
- 
+
     private bool activated = false; // To ensure enemies are spawned only once
 
 
@@ -141,6 +162,11 @@ public class SpawnEnemy : MonoBehaviour
         //spawn the reapers on trigger with the player
         if (collision.CompareTag("Player") && !activated)
         {
+            if (removeText != null && (currentLevel == level.Level1 || currentLevel == level.Level2))
+            {
+                removeText.SetActive(false); // Remove the text when the player enters the trigger
+            }
+
             activated = true;
             if (enemyType == EnemyType.Reaper)
             {
@@ -215,15 +241,19 @@ public class SpawnEnemy : MonoBehaviour
 
         if (zombiesKilled >= zombiesSpawned)
         {
-            // All zombies have been killed, you can perform any additional actions here
+            // All zombies have been killed
             Debug.Log("All zombies have been killed!");
 
             if (currentLevel == level.Level1)
             {
                 doorSpawn[0].SetActive(true); // Enable the door
                 doorSpawn[1].SetActive(false); // Disable the wall
+                doorSpawn[2].SetActive(true); // Enable the pointer
             }
-            
+            else if (currentLevel == level.Level2)
+            {
+                doorSpawn[2].SetActive(true); // Enable the pointer
+            }
         }
     }
 
@@ -231,10 +261,19 @@ public class SpawnEnemy : MonoBehaviour
     {
         reapersKilled++;
 
-        if (reapersKilled == 2 && currentLevel == level.Level2)
+        if (reapersKilled == 2 && currentLevel == level.Level2 && enemyType == EnemyType.Reaper)
         {
             doorSpawn[0].SetActive(true); // Enable the door
             doorSpawn[1].SetActive(false); // Disable the wall
+
+            // Switch the pointer to point towards the next objective
+            pointer.SetTarget(secondTarget);
+            doorSpawn[2].SetActive(true); // Enable the pointer
         }
+    }
+
+    public void spearPickedUp()
+    {
+        removeText.SetActive(true); // show text when spear is picked up
     }
 }

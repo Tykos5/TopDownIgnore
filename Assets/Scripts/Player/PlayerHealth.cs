@@ -45,6 +45,8 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("Player died");
+
+            Died();
         }
         StartCoroutine(DamageIFrame());
     }
@@ -71,5 +73,14 @@ public class PlayerHealth : MonoBehaviour
         healthBar = FindFirstObjectByType<HealthBar>();
         if (healthBar != null)
             healthBar.SetHealth((int)health);
+    }
+
+    private void Died()
+    {
+        // save score to static data before loading death scene
+        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
+
+        // Switch to DeathScene
+        SceneManager.LoadScene("DeathScene");
     }
 }

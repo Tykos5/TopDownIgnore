@@ -65,10 +65,9 @@ public class enemyHealth : MonoBehaviour
 
             if (health <= 0)
             {
+                Die();
                 // Call for dissapearing wall do dissapear and gate to open
                 onEnemyDeath.Invoke();
-
-                Die();
             }
             else
             {

@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class spearPickUp : MonoBehaviour
 {
     private PlayerAttack playerAttack;
+
+    public UnityEvent pickedUp; // Event to invoke when the spear is picked up
 
     private void Start()
     {
@@ -16,6 +19,8 @@ public class spearPickUp : MonoBehaviour
             StaticData.canSpear = true; // Update static data to indicate the player can use the spear
             Destroy(gameObject); // Remove the spear from the scene
             playerAttack.canSpear = true; // Allow the player to use the spear
+
+            pickedUp.Invoke();
         }
     }
 }
