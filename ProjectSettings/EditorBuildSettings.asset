@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3e77bd9401e7fea429a49afca08cdc15
   - enabled: 1
-    path: Assets/Scenes/DifficultyMenu.unity
+    path: Assets/Scenes/VictoryMenu.unity
     guid: e8558dcb83f8413488be7189d7bad072
   - enabled: 1
     path: Assets/Scenes/Level1.unity

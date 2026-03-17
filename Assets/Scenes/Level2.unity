@@ -747,7 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerTile
   nextCoffin: {fileID: 0}
   spawnDelay: 0.2
-  tilemapObject: {fileID: 687195425}
+  tilemapObject: {fileID: 0}
   spawnEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3009,7 +3009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerTile
   nextCoffin: {fileID: 344429315}
   spawnDelay: 0.2
-  tilemapObject: {fileID: 687195425}
+  tilemapObject: {fileID: 0}
   spawnEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3243,11 +3243,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7098709584847626475, guid: 2bb2527203a3e2742bb992f9ddbe10e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 4.87
       objectReference: {fileID: 0}
     - target: {fileID: 7098709584847626475, guid: 2bb2527203a3e2742bb992f9ddbe10e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.97
+      value: 32.91
       objectReference: {fileID: 0}
     - target: {fileID: 7098709584847626475, guid: 2bb2527203a3e2742bb992f9ddbe10e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4140,7 +4140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerTile
   nextCoffin: {fileID: 475553126}
   spawnDelay: 0.2
-  tilemapObject: {fileID: 687195425}
+  tilemapObject: {fileID: 0}
   spawnEvent:
     m_PersistentCalls:
       m_Calls:

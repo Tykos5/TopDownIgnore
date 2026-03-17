@@ -76,9 +76,9 @@ public class Projectile : MonoBehaviour
                         //Destroy the projectile
                         Destroy(gameObject);
                     }
-                    else if (collision.CompareTag("Reaper"))
+                    else if (collision.CompareTag("Reaper") || collision.CompareTag("RockBoss"))
                     {
-                        //Damage the reaper
+                        //Damage the reaper or rockBoss
                         if (hp != null)
                         {
                             hp.TakeDamage(damage, attackOrigin.transform.position);
@@ -86,7 +86,6 @@ public class Projectile : MonoBehaviour
                         //Destroy the projectile
                         Destroy(gameObject);
                     }
-
                     else if (collision.CompareTag("Wall"))
                     {
                         //Destroy the projectile

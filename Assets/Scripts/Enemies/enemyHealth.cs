@@ -20,6 +20,8 @@ public class enemyHealth : MonoBehaviour
 
     public ScoreManager scoreManager;
 
+    public SceneController sceneController;
+
     void Start()
     {
         kb = GetComponent<Knockback>();
@@ -32,11 +34,11 @@ public class enemyHealth : MonoBehaviour
         }
         else if (enemyType == EnemyType.MeleeReaper)
         {
-            maxHealth = StaticData.meleeReaperHealth; 
+            maxHealth = StaticData.meleeReaperHealth;
         }
         else if (enemyType == EnemyType.RangedReaper)
         {
-            maxHealth = StaticData.rangedReaperHealth; 
+            maxHealth = StaticData.rangedReaperHealth;
         }
         else if (enemyType == EnemyType.RockBoss)
         {
@@ -55,7 +57,7 @@ public class enemyHealth : MonoBehaviour
     public EnemyType enemyType;
 
 
-    public void TakeDamage(float damage, Vector2 hitSource) 
+    public void TakeDamage(float damage, Vector2 hitSource)
     {
         if (canTakeDamage)
         {
@@ -66,7 +68,7 @@ public class enemyHealth : MonoBehaviour
             if (health <= 0)
             {
                 Die();
-                // Call for dissapearing wall do dissapear and gate to open
+
                 onEnemyDeath.Invoke();
             }
             else
@@ -88,7 +90,6 @@ public class enemyHealth : MonoBehaviour
     {
         // Implement death logic here
         Debug.Log("Enemy Died");
-        Destroy(gameObject);
 
         scoreManager = FindFirstObjectByType<ScoreManager>();
 
@@ -111,5 +112,14 @@ public class enemyHealth : MonoBehaviour
                     break;
             }
         }
+
+        if (enemyType == EnemyType.RockBoss)
+        {
+            // After 3 seconds, load VictoryMenu scene
+            sceneController.Victory();
+
+        }
+
+        Destroy(gameObject);
     }
 }

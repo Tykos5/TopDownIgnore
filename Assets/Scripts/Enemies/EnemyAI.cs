@@ -19,6 +19,11 @@ public class EnemyAI : MonoBehaviour
 
     public Vector2 startPos;
 
+    [SerializeField] private float deathVolume = 0.5f;
+    [SerializeField] private float hitVolume = 0.5f;
+    [SerializeField] private float attackVolume = 0.5f;
+
+
     public float idleDistance { get; private set; } = 1f;
     public float attackRange { get; private set; } = 1.5f;
 
@@ -129,10 +134,13 @@ public class EnemyAI : MonoBehaviour
                 // Call for dissapearing wall do dissapear and gate to open
                 onEnemyDeath.Invoke();
 
+                SoundManager.instance.PlaySoundFXClip("zombieDeath", transform, deathVolume);
+
                 Die();
             }
             else
             {
+                SoundManager.instance.PlaySoundFXClip("zombieHit", transform, hitVolume);
                 Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized;
                 kb.ApplyKnockback(knockDir, rb);
             }

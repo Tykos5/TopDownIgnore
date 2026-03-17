@@ -167,6 +167,11 @@ public class SpawnEnemy : MonoBehaviour
                 removeText.SetActive(false); // Remove the text when the player enters the trigger
             }
 
+            if (currentLevel == level.Level2)
+            {
+                doorSpawn[2].SetActive(false); // Disable the pointer if not already disabled
+            }
+
             activated = true;
             if (enemyType == EnemyType.Reaper)
             {

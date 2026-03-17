@@ -18,6 +18,8 @@ public class EnemyAttack : MonoBehaviour
     private Transform target;
     private Vector2 direction;
 
+    [SerializeField] private float meleeVolume = 0.5f;
+
     //private Animator anim;
 
     private void Start()
@@ -53,7 +55,8 @@ public class EnemyAttack : MonoBehaviour
 
         //Debug.Log("Attack reqs met");
         StartCoroutine(AttackCoroutine());
-        
+        SoundManager.instance.PlaySoundFXClip("zombieMelee", transform, meleeVolume);
+
     }
 
     private IEnumerator AttackCoroutine()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneController : MonoBehaviour
 {
@@ -42,5 +43,22 @@ public class SceneController : MonoBehaviour
 
         scoreManager = FindFirstObjectByType<ScoreManager>(); // re-find in current scene
         StaticData.score = scoreManager.score; //save score to static data before loading next scene
+    }
+
+    public void Victory()
+    {
+        StartCoroutine(VictoryCoroutine());
+    }
+
+    private IEnumerator VictoryCoroutine()
+    {
+
+        yield return new WaitForSeconds(3f);
+        StaticData.score = scoreManager.score; //save score to static data before loading next scene
+
+        if (playerHealth.health > 0)
+        {
+            SceneManager.LoadScene("VictoryMenu");
+        }
     }
 }

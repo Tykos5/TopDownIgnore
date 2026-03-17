@@ -31,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
 
     string direction;
 
+    [SerializeField] private float meleeVolume = 0.5f;
 
     void Start()
     {
@@ -126,9 +127,9 @@ public class PlayerAttack : MonoBehaviour
         canAttack = false;
         //Play attack animation based on direction
         anim.SetTrigger("Attack");
-        
 
-        //Here you can add code to deal damage to enemies in range based on direction
+        SoundManager.instance.PlaySoundFXClip("ReaperMelee", transform, meleeVolume);
+
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }

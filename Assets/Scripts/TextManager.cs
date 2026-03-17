@@ -6,7 +6,12 @@ public class TextManager : MonoBehaviour
 {
     public TMP_Text ScoreText;
 
-    public void UpdateScoreText(Text scoreText)
+    //public void UpdateScoreText(Text scoreText)
+    //{
+    //    ScoreText.text = "Score: " + StaticData.score.ToString();
+    //}
+
+    void Start()
     {
         ScoreText.text = "Score: " + StaticData.score.ToString();
     }

@@ -573,6 +573,8 @@ MonoBehaviour:
   onEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
+  scoreManager: {fileID: 629036227}
+  sceneController: {fileID: 505365869}
   enemyType: 3
 --- !u!1 &505365866
 GameObject:
@@ -584,6 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505365868}
   - component: {fileID: 505365867}
+  - component: {fileID: 505365869}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -603,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f3af107e262a44e848f7b57b66d8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemy
+  removeText: {fileID: 0}
   difficulty: 0
   currentLevel: 3
   enemyType: 1
@@ -618,6 +622,8 @@ MonoBehaviour:
   onEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
+  pointer: {fileID: 0}
+  secondTarget: {fileID: 0}
 --- !u!4 &505365868
 Transform:
   m_ObjectHideFlags: 0
@@ -633,6 +639,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &505365869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505365866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e02154a074f8c40ad77c3d278fd21e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneController
+  playerHealth: {fileID: 1766008926}
+  scoreManager: {fileID: 629036227}
+--- !u!114 &629036227 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5233383012963730705, guid: b72fb71e8fea52d40b07d9d7c22dd14f, type: 3}
+  m_PrefabInstance: {fileID: 119437027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac614e9097b31f45a49a22264925fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
 --- !u!1 &1082828113
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,6 +4306,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7891247483687833563, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
   m_PrefabInstance: {fileID: 1766008923}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1766008926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4242910349763919133, guid: 904fbcfdbd623dd4e8aee1c28a89ceae, type: 3}
+  m_PrefabInstance: {fileID: 1766008923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264883450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fed240ed25338f46851b299dc0e66b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
 --- !u!1001 &2012190635
 PrefabInstance:
   m_ObjectHideFlags: 0

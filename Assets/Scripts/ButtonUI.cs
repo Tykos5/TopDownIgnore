@@ -119,6 +119,7 @@ public class ButtonUI : MonoBehaviour
     public void MainMenuButton()
     {
         StaticData.difficulty = difficulty;
+        StaticData.score = 0; // Reset score when going back to main menu
         SceneManager.LoadScene("MainMenu");
     }
 
