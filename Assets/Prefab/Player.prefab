@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5437754753779841396}
   m_Layer: 8
   m_Name: Melee
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9b3b93f8cc11f47af696da8da6d656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  dashVolume: 0.5
   _moveSpeed: 5
   dashSpeed: 10
   dashDuration: 0.3
@@ -393,6 +394,7 @@ MonoBehaviour:
   SpearCooldown: 2
   canSpear: 0
   dir: {x: 0, y: 0}
+  meleeVolume: 0.5
 --- !u!95 &809827213625485827
 Animator:
   serializedVersion: 7

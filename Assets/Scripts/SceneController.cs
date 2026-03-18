@@ -10,6 +10,8 @@ public class SceneController : MonoBehaviour
 
     public ScoreManager scoreManager;
 
+    [SerializeField] private float victoryVolume = 0.5f;
+
     private void Awake()
     {
         if (instance == null)
@@ -53,11 +55,16 @@ public class SceneController : MonoBehaviour
     private IEnumerator VictoryCoroutine()
     {
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f); //wait for victory sound to play
+        SoundManager.instance.PlaySoundFXClip("Victory", transform, victoryVolume);
+
+
+        yield return new WaitForSeconds(2f);
         StaticData.score = scoreManager.score; //save score to static data before loading next scene
 
         if (playerHealth.health > 0)
         {
+            
             SceneManager.LoadScene("VictoryMenu");
         }
     }

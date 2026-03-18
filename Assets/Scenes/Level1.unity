@@ -5494,6 +5494,8 @@ MonoBehaviour:
   onEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
+  pointer: {fileID: 0}
+  secondTarget: {fileID: 0}
 --- !u!1001 &1559340967
 PrefabInstance:
   m_ObjectHideFlags: 0

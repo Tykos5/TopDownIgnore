@@ -27,9 +27,9 @@ public class TriggerTile : MonoBehaviour
         tilemapObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D PlayerAttack)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        spawnEvent.Invoke();
-
+        if (collision.CompareTag("PlayerAttack"))
+            spawnEvent.Invoke();
     }
 }

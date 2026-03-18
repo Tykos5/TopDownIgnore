@@ -10,6 +10,8 @@ public class enemyHealth : MonoBehaviour
     public float damageCooldown = 0.5f;
     public bool canTakeDamage = true;
 
+    [SerializeField] private float reaperDeathVolume = 0.5f;
+
 
     public GameObject Owner;
 
@@ -26,6 +28,8 @@ public class enemyHealth : MonoBehaviour
     {
         kb = GetComponent<Knockback>();
         rb = GetComponent<Rigidbody2D>();
+
+        sceneController = FindFirstObjectByType<SceneController>();
 
         // get max health from static data based on enemy type
         if (enemyType == EnemyType.Zombie)
@@ -113,13 +117,19 @@ public class enemyHealth : MonoBehaviour
             }
         }
 
+        if (enemyType == EnemyType.MeleeReaper || enemyType == EnemyType.RangedReaper)
+        {
+            Debug.Log("Playing Reaper Death Sound");
+            SoundManager.instance.PlaySoundFXClip("ReaperDeath", transform, reaperDeathVolume);
+        }
+
+
         if (enemyType == EnemyType.RockBoss)
         {
             // After 3 seconds, load VictoryMenu scene
             sceneController.Victory();
 
         }
-
         Destroy(gameObject);
     }
 }

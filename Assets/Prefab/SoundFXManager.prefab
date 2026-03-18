@@ -45,3 +45,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   soundFXObject: {fileID: 2011551820792183309, guid: 604e9db9e62697a47919241b8d26ae60, type: 3}
+  Level1Music: {fileID: 8300000, guid: 2c2eb9addb8f48243b025663b2d66e85, type: 3}
+  Level2Music: {fileID: 8300000, guid: 33a5400b8bf84614fba00a25d5d150c7, type: 3}
+  Level3Music: {fileID: 8300000, guid: d26bd3f2b2118c9408a66abf89bdd45b, type: 3}
+  Level4Music: {fileID: 8300000, guid: 8626d3a044161fb4b90f5a4f1b32c77a, type: 3}
+  dash: {fileID: 8300000, guid: a18576de24e88da498c76ff2a7ca0f8b, type: 3}
+  playerDeath: {fileID: 8300000, guid: 7c1b06de1e6bc7a4fb61ce70c295b38a, type: 3}
+  playerHit: {fileID: 8300000, guid: fa054898c1ab3f64f8e873582925dc30, type: 3}
+  playerMelee: {fileID: 8300000, guid: d334e5bfeb54b2b4f81d890bda0610a7, type: 3}
+  playerSpear: {fileID: 8300000, guid: ec898f41569148444a7331f57ea24fec, type: 3}
+  victory: {fileID: 8300000, guid: 86e357668a939604ba3f50c3f17813c9, type: 3}
+  reaperDeath: {fileID: 8300000, guid: b56cd49c1ef7bf7409b69aa2ba2f8705, type: 3}
+  reaperHit: {fileID: 8300000, guid: a7d805d850953f54abbd1d7cd0c65278, type: 3}
+  reaperMelee: {fileID: 8300000, guid: 66a59b51b0f9d024ca20920917f4f588, type: 3}
+  reaperOrb: {fileID: 8300000, guid: 9957198ad72586641a30875708104f3f, type: 3}
+  zombieDeath: {fileID: 8300000, guid: 8af6bf1b33552094e9ffdb4a39621780, type: 3}
+  zombieHit: {fileID: 8300000, guid: 1778b527dfad81b42ad1eece046c0fba, type: 3}
+  zombieMelee: {fileID: 8300000, guid: 7bdf781e74380ab47ad65e713a7940c9, type: 3}
+  rockDeath: {fileID: 8300000, guid: 457d9202d984a3f4d910516a6cfa60ff, type: 3}
+  rockHit: {fileID: 8300000, guid: 1332dc4c39a2d6345a1a3fbdc2ea38c2, type: 3}
+  rockMelee: {fileID: 8300000, guid: b3f0e82887340de4487adca1e1850d6d, type: 3}
+  rockOrb: {fileID: 8300000, guid: 1836fc6f961586a40922ae473fa97d55, type: 3}

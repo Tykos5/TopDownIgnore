@@ -36,6 +36,14 @@ public class mobAttack : MonoBehaviour
 
     private Vector2 currentDistance;
 
+    [Header("Volume")]
+    [SerializeField] private float reaperOrbVolume = 0.5f;
+    [SerializeField] private float reaperMeleeVolume = 0.5f;
+    [SerializeField] private float rockBossRangedVolume = 0.5f;
+    [SerializeField] private float rockBossMeleeVolume = 0.5f;
+
+
+
     public enum attackType
     {
         Melee,
@@ -80,9 +88,9 @@ public class mobAttack : MonoBehaviour
         {
             case attackType.Melee:
                 {
-                    //Debug.Log("Melee attack logic");  
                     if (currentDistance.magnitude <= attackRange && canAttack)
                     {
+
                         TryAttack();
                     }
                 }
@@ -124,6 +132,7 @@ public class mobAttack : MonoBehaviour
 
         canAttack = false;
         anim.SetTrigger("Attack");
+
         StartCoroutine(AttackCD());
     }
 
@@ -134,8 +143,16 @@ public class mobAttack : MonoBehaviour
         canAttack = true;
     }
 
-    private void MeeleAttack()
+    private void MeleeAttack()
     {
+        if (attacktype == attackType.Melee)
+        {
+            SoundManager.instance.PlaySoundFXClip("ReaperMelee", transform, reaperMeleeVolume);
+        }
+        else if (attacktype == attackType.RockBoss)
+        {
+            SoundManager.instance.PlaySoundFXClip("RockMelee", transform, rockBossMeleeVolume);
+        }
 
         playerHealth = player.GetComponent<PlayerHealth>();
 
@@ -170,6 +187,9 @@ public class mobAttack : MonoBehaviour
     {
         if (canAttack && attacktype == attackType.Ranged)
         {
+            //sfx reaperOrb
+            SoundManager.instance.PlaySoundFXClip("ReaperOrb", transform, reaperOrbVolume);
+
             direction = (player.transform.position - transform.position).normalized;
 
             canAttack = false;
@@ -190,6 +210,9 @@ public class mobAttack : MonoBehaviour
     {
         if (attacktype == attackType.RockBoss && canRange)
         {
+            //sfx rockBossOrb
+            SoundManager.instance.PlaySoundFXClip("RockOrb", transform, rockBossRangedVolume);
+
             canRange = false; // prevent multiple calls until CD resets
 
             Vector2[] diagonals = 

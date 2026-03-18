@@ -193,6 +193,7 @@ MonoBehaviour:
   maxHealth: 100
   damageCooldown: 0.5
   canTakeDamage: 1
+  reaperDeathVolume: 0.5
   Owner: {fileID: 926837746820159419}
   onEnemyDeath:
     m_PersistentCalls:
@@ -209,7 +210,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemyType: 0
+  scoreManager: {fileID: 0}
+  sceneController: {fileID: 0}
+  enemyType: 1
 --- !u!114 &4845186633024457107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,4 +276,8 @@ MonoBehaviour:
   projectileSpeed: 3
   projectileSpawnDistance: 0.5
   projectilePrefab: {fileID: 0}
+  reaperOrbVolume: 0.5
+  reaperMeleeVolume: 0.1
+  rockBossRangedVolume: 0
+  rockBossMeleeVolume: 0
   attacktype: 0
