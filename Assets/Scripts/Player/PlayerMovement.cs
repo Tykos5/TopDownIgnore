@@ -6,9 +6,11 @@ using System.Dynamic;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Volume")]
+    [SerializeField] private float dashVolume = 0.5f;
+
 
     [SerializeField] private float _moveSpeed = 5f;
-
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0.3f;
     [SerializeField] private float dashCooldown = 1f;
@@ -79,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         //trailRenderer.emitting = true;
 
+        SoundManager.instance.PlaySoundFXClip("Dash", transform, dashVolume);
         //Dash in the direction the player is currently moving or last moved, get direction from GetDirection()
-        
         _rb.linearVelocity = direction switch   //dasgh in the direction the player is facing
         {
             "Up" => new Vector2(0, dashSpeed),
@@ -201,25 +203,4 @@ public class PlayerMovement : MonoBehaviour
         else
             return lastDirection;
     }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("ZombieTrigger"))
-    //    {
-    //        //Debug.Log("Player entered zombie trigger");
-
-    //        zombie.StartChasing(transform); // send PLAYER transform
-    //    }
-        
-    //}
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("ZombieTrigger"))
-    //    {
-    //        //Debug.Log("Player exited zombie trigger");
-
-    //        zombie.StopChasing();
-    //    }
-    //}
 }

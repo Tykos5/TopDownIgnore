@@ -79,6 +79,12 @@ public class SoundManager : MonoBehaviour
             _ => null
         };
 
+        if (audioclip == null)
+        {
+            Debug.LogWarning("SoundManager: No clip found for key: " + audioclipString);
+            return;
+        }
+
         //Spawn gameobject
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 

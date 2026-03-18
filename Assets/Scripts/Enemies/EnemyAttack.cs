@@ -55,7 +55,7 @@ public class EnemyAttack : MonoBehaviour
 
         //Debug.Log("Attack reqs met");
         StartCoroutine(AttackCoroutine());
-        SoundManager.instance.PlaySoundFXClip("zombieMelee", transform, meleeVolume);
+        SoundManager.instance.PlaySoundFXClip("ZombieMelee", transform, meleeVolume);
 
     }
 
