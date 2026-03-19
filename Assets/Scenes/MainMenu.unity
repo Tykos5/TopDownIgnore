@@ -263,6 +263,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_text
+      value: CRYPT RUNNER
+      objectReference: {fileID: 0}
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.08276967
+      objectReference: {fileID: 0}
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.2747529
+      objectReference: {fileID: 0}
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4279584400
+      objectReference: {fileID: 0}
+    - target: {fileID: 99546588362089757, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: 97690656
+      objectReference: {fileID: 0}
     - target: {fileID: 127555460319611071, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -358,6 +382,14 @@ PrefabInstance:
     - target: {fileID: 6041480852014601420, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532378719403449748, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532378719403449748, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 6546288922098555914, guid: 5d109163ee6399744af83157b62fde7f, type: 3}
       propertyPath: m_Name

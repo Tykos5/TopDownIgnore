@@ -69,7 +69,7 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rockBossHealth = 25;
                 StaticData.RockBossMeleeDMG = 3;
                 StaticData.RockBossRangedDMG = 2;
-                StaticData.RockBossOrbDespawnTime = 8;
+                StaticData.RockBossOrbDespawnTime = 5;
                 StaticData.RockBossRangedCD = 6;
                 break;
             case 3:                 // Expert
@@ -86,8 +86,8 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rockBossHealth = 30;
                 StaticData.RockBossMeleeDMG = 3;
                 StaticData.RockBossRangedDMG = 2;
-                StaticData.RockBossOrbDespawnTime = 10;
-                StaticData.RockBossRangedCD = 4.5f;
+                StaticData.RockBossOrbDespawnTime = 7;
+                StaticData.RockBossRangedCD = 6f;
                 break;
             case 4:                 // Nightmare
                 StaticData.zombieDamage = 100;
@@ -103,8 +103,8 @@ public class ButtonUI : MonoBehaviour
                 StaticData.rockBossHealth = 30;
                 StaticData.RockBossMeleeDMG = 100;
                 StaticData.RockBossRangedDMG = 100;
-                StaticData.RockBossOrbDespawnTime = 10;
-                StaticData.RockBossRangedCD = 4.5f;
+                StaticData.RockBossOrbDespawnTime = 8;
+                StaticData.RockBossRangedCD = 5f;
                 break;
         }
 
@@ -120,6 +120,10 @@ public class ButtonUI : MonoBehaviour
     {
         StaticData.difficulty = difficulty;
         StaticData.score = 0; // Reset score when going back to main menu
+
+        StaticData.playerHealth = 10; // Reset player health when restarting game
+        StaticData.canSpear = false; // Reset spear ability when restarting game
+
         SceneManager.LoadScene("MainMenu");
     }
 

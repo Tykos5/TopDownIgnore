@@ -32,6 +32,7 @@ public class PlayerAttack : MonoBehaviour
     string direction;
 
     [SerializeField] private float meleeVolume = 0.5f;
+    [SerializeField] private float spearVolume = 0.5f;
 
     void Start()
     {
@@ -99,7 +100,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (canSpear)
         {
-             dir = GetDirectionVector(direction).normalized;
+            SoundManager.instance.PlaySoundFXClip("PlayerSpear", transform, spearVolume);
+
+            dir = GetDirectionVector(direction).normalized;
 
             canSpear = false;
             Debug.Log("Spear Attack Triggered");

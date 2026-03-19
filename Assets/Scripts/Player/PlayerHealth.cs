@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     private bool canTakeDamage;
     private float damageCooldown = 0.5f;
 
+    [SerializeField] private float playerHitVolume = 0.5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!canTakeDamage)
             return;
+
+        SoundManager.instance.PlaySoundFXClip("PlayerHit", transform, playerHitVolume);
 
         health -= damage;
         Debug.Log("Player took damage: " + health);

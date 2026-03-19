@@ -11,6 +11,7 @@ public class SceneController : MonoBehaviour
     public ScoreManager scoreManager;
 
     [SerializeField] private float victoryVolume = 0.5f;
+    [SerializeField] private float deathVolume = 0.5f;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class SceneController : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -25,26 +27,35 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // play death sound if DeathScene is loaded
+        if (SceneManager.GetActiveScene().name == "DeathScene")
+        {
+            SoundManager.instance.PlaySoundFXClip("PlayerDeath", transform, deathVolume);
+        }
+    }
+
     public void NextLevel()
     {
         playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
-
         StaticData.playerHealth = playerHealth.health;  //save player health to static data before loading next scene
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
 
         scoreManager = FindFirstObjectByType<ScoreManager>(); // re-find in current scene
         StaticData.score = scoreManager.score; //save score to static data before loading next scene
+
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LoadScene(string sceneName)
     {
         playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
-
         StaticData.playerHealth =  playerHealth.health;
-        SceneManager.LoadSceneAsync(sceneName);
 
         scoreManager = FindFirstObjectByType<ScoreManager>(); // re-find in current scene
         StaticData.score = scoreManager.score; //save score to static data before loading next scene
+
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     public void Victory()
@@ -54,6 +65,8 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator VictoryCoroutine()
     {
+        playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
+        scoreManager = FindFirstObjectByType<ScoreManager>(); // re-find in current scene
 
         yield return new WaitForSeconds(1f); //wait for victory sound to play
         SoundManager.instance.PlaySoundFXClip("Victory", transform, victoryVolume);
@@ -67,5 +80,17 @@ public class SceneController : MonoBehaviour
             
             SceneManager.LoadScene("VictoryMenu");
         }
+    }
+
+    private void OnSceneLoaded (Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "DeathScene")
+        {
+            SoundManager.instance.PlaySoundFXClip("PlayerDeath", transform, deathVolume);
+        }
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

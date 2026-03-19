@@ -6,6 +6,8 @@ using UnityEngine.Windows.WebCam;
 using UnityEngine.Events;
 using UnityEditor.PackageManager.Requests;
 
+// This Class handles most logic for the zombie enemy except for the attack.
+
 public class EnemyAI : MonoBehaviour
 {
 

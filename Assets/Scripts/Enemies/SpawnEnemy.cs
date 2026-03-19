@@ -127,7 +127,7 @@ public class SpawnEnemy : MonoBehaviour
         // Reaper spawn L4
         if (currentLevel == level.Level4 && enemyType == EnemyType.Reaper)
         {
-            if (difficulty >= 2) // Spawn reapers for Expert difficulty and above
+            if (difficulty >= 2) // Spawn reapers for Hard difficulty and above
             {
                 foreach (GameObject rangedReaper in rangedReapers)
                 {
