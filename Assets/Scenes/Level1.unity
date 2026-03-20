@@ -4753,6 +4753,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerHealth: {fileID: 105126326}
   scoreManager: {fileID: 0}
+  victoryVolume: 0.5
+  deathVolume: 0.5
 --- !u!4 &545383062
 Transform:
   m_ObjectHideFlags: 0

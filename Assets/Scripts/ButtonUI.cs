@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class ButtonUI : MonoBehaviour
+public class ButtonUI : MonoBehaviour   // handles the different buttons
 {
     public TMP_Text difficultyText;
 
@@ -18,7 +18,8 @@ public class ButtonUI : MonoBehaviour
         // Set the difficulty in static data
         StaticData.difficulty = difficulty;
 
-        // Set zombie damage based on difficulty
+
+        // Set all variable that depend on difficulty
         switch (difficulty)
         {
             case 0:                 // Easy 
@@ -108,8 +109,7 @@ public class ButtonUI : MonoBehaviour
                 break;
         }
 
-        
-
+        // load level1
         SceneManager.LoadScene("Level1");
     }
 
@@ -127,13 +127,15 @@ public class ButtonUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    // Swap to difficulty menu
+    // swap difficulty button
     public void DifficultyButton()
     {
         if (difficulty < 4)
             difficulty++;
         else
             difficulty = 0;
+        
+        //change text on the button based on current difficulty
         switch (difficulty)
         {
             case 0:

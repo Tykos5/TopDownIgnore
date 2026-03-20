@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CoffinManager : MonoBehaviour
+public class CoffinManager : MonoBehaviour  // Handles the swapping of coffin sprites
 {
     public GameObject[] coffins;
     public float formDelay = 0.2f;
