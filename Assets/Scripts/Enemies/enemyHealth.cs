@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections;
 
 
-public class enemyHealth : MonoBehaviour
+public class enemyHealth : MonoBehaviour  // Handles health for all mobs except zombie.
 {
     public float health, maxHealth;
 
@@ -11,6 +11,7 @@ public class enemyHealth : MonoBehaviour
     public bool canTakeDamage = true;
 
     [SerializeField] private float reaperDeathVolume = 0.5f;
+    [SerializeField] private float rockDeathVolume = 0.5f;
 
 
     public GameObject Owner;
@@ -32,11 +33,7 @@ public class enemyHealth : MonoBehaviour
         sceneController = FindFirstObjectByType<SceneController>();
 
         // get max health from static data based on enemy type
-        if (enemyType == EnemyType.Zombie)
-        {
-            maxHealth = StaticData.zombieHealth;
-        }
-        else if (enemyType == EnemyType.MeleeReaper)
+        if (enemyType == EnemyType.MeleeReaper)
         {
             maxHealth = StaticData.meleeReaperHealth;
         }
@@ -48,12 +45,11 @@ public class enemyHealth : MonoBehaviour
         {
             maxHealth = StaticData.rockBossHealth;
         }
-        health = maxHealth;
+        health = maxHealth; // set health of owner to the correct int
     }
 
-    public enum EnemyType
+    public enum EnemyType  // enum to handle logic for different mobs.
     {
-        Zombie,
         MeleeReaper,
         RangedReaper,
         RockBoss
@@ -61,13 +57,13 @@ public class enemyHealth : MonoBehaviour
     public EnemyType enemyType;
 
 
-    public void TakeDamage(float damage, Vector2 hitSource)
+    public void TakeDamage(float damage, Vector2 hitSource)  // Called from player weapon script
     {
-        if (canTakeDamage)
+        if (canTakeDamage) // if not in iFrame
         {
-            Debug.Log("Enemy took damage: " + health);
-
             health -= damage;
+
+            Debug.Log("Enemy took damage: " + health);
 
             if (health <= 0)
             {
@@ -75,12 +71,12 @@ public class enemyHealth : MonoBehaviour
 
                 onEnemyDeath.Invoke();
             }
-            else
+            else // find hit source and apply knockback
             {
-                Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized;
+                Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized; 
                 kb.ApplyKnockback(knockDir, rb);
             }
-            StartCoroutine(DamageIFrame());
+            StartCoroutine(DamageIFrame()); // immunityFrames
         }
     }
     private IEnumerator DamageIFrame()
@@ -92,19 +88,15 @@ public class enemyHealth : MonoBehaviour
 
     void Die()
     {
-        // Implement death logic here
         Debug.Log("Enemy Died");
 
         scoreManager = FindFirstObjectByType<ScoreManager>();
 
-        //Add score to score scoremanager
+        //Add score to score scoremanager based on enemyType
         if (scoreManager != null)
         {
             switch (enemyType)
             {
-                case EnemyType.Zombie:
-                    scoreManager.score += 10;
-                    break;
                 case EnemyType.MeleeReaper:
                     scoreManager.score += 20;
                     break;
@@ -117,15 +109,18 @@ public class enemyHealth : MonoBehaviour
             }
         }
 
-        if (enemyType == EnemyType.MeleeReaper || enemyType == EnemyType.RangedReaper)
+        if (enemyType == EnemyType.MeleeReaper || enemyType == EnemyType.RangedReaper) // play reaperDeath sound if a reaper dies
         {
             Debug.Log("Playing Reaper Death Sound");
             SoundManager.instance.PlaySoundFXClip("ReaperDeath", transform, reaperDeathVolume);
         }
 
 
-        if (enemyType == EnemyType.RockBoss)
+        if (enemyType == EnemyType.RockBoss) 
         {
+            // play rockBoss death sound
+            SoundManager.instance.PlaySoundFXClip("RockDeath", transform, rockDeathVolume);
+
             // After 3 seconds, load VictoryMenu scene
             sceneController.Victory();
 

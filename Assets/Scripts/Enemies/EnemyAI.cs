@@ -6,7 +6,7 @@ using UnityEngine.Windows.WebCam;
 using UnityEngine.Events;
 using UnityEditor.PackageManager.Requests;
 
-// This Class handles most logic for the zombie enemy except for the attack.
+// This Class handles most logic for the ZOMBIE enemy except for the attack.
 
 public class EnemyAI : MonoBehaviour
 {
@@ -48,20 +48,20 @@ public class EnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();   
         kb = GetComponent<Knockback>();
 
-        startPos = transform.position;
+        startPos = transform.position; // save starting position
 
         maxHealth = StaticData.zombieHealth; // Get the zombie health from static data
 
-        health = maxHealth;
+        health = maxHealth; // set health
     }
 
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        // Calculate distance to target
         Vector2 destination = canChase && target != null ? (Vector2)target.position : startPos;
         float distanceToDestination = Vector2.Distance(rb.position, destination);
 
@@ -77,9 +77,8 @@ public class EnemyAI : MonoBehaviour
                 Debug.LogWarning("EnemyAttack component is missing on the enemy.");
                 return;
             }
-            if (canChase && distanceToTarget <= attackRange)
+            if (canChase && distanceToTarget <= attackRange)  // try to attack if in range and within zombie boundary
             {
-                //Debug.Log("In attack range, trying to attack from EnemyAI script");
                 enemyAttack.TryAttack();
             }
         }
@@ -92,13 +91,13 @@ public class EnemyAI : MonoBehaviour
         {
             MoveDirection = (target.position - transform.position).normalized;
         }
-        else
+        else  // if player is out of boundary target becomes its starting position
         {
             MoveDirection = (startPos - (Vector2)transform.position).normalized;
         }
     }
 
-    private void Move(float distance, float speed, Rigidbody2D rb)
+    private void Move(float distance, float speed, Rigidbody2D rb)  // Move the zombie if its not being knocked back
     {
         if (kb == null || !kb.isBeingKnockedBack)
         {
@@ -109,7 +108,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void StartChasing(Transform chaseTarget)
+    public void StartChasing(Transform chaseTarget) // Set taget to player if within boundary
     {
         canChase = true;
         target = chaseTarget;
@@ -118,7 +117,7 @@ public class EnemyAI : MonoBehaviour
             enemyAttack.SetTarget(chaseTarget);
     }
 
-    public void StopChasing()
+    public void StopChasing() // when outside boundary no target, moves towards startPos
     {
         canChase = false;
         target = null;
@@ -132,20 +131,19 @@ public class EnemyAI : MonoBehaviour
 
             if (health <= 0)
             {
-                // Call for dissapearing wall do dissapear and gate to open
-                onEnemyDeath.Invoke();
+                onEnemyDeath.Invoke(); // Enemy death event to call that a zombie died
 
-                SoundManager.instance.PlaySoundFXClip("ZombieDeath", transform, deathVolume);
+                SoundManager.instance.PlaySoundFXClip("ZombieDeath", transform, deathVolume); // zombie death sound
 
                 Die();
             }
             else
             {
-                SoundManager.instance.PlaySoundFXClip("ZombieHit", transform, hitVolume);
-                Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized;
+                SoundManager.instance.PlaySoundFXClip("ZombieHit", transform, hitVolume); // Zombie hit sound
+                Vector2 knockDir = (transform.position - (Vector3)hitSource).normalized;    // Set knockback Direction
                 kb.ApplyKnockback(knockDir, rb);
             }
-            StartCoroutine(DamageIFrame());
+            StartCoroutine(DamageIFrame()); // Immunity time after being hit
         }
     }
     private IEnumerator DamageIFrame()
@@ -157,10 +155,6 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        // Implement death logic here
-
-        //Add Score
-
         scoreManager = FindFirstObjectByType<ScoreManager>();
         scoreManager.score += 10; // Add 10 points for killing zombie
 

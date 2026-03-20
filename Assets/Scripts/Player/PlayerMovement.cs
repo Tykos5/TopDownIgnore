@@ -4,7 +4,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Dynamic;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour  // handles player inputs
 {
     [Header("Volume")]
     [SerializeField] private float dashVolume = 0.5f;
@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashCooldown = 1f;
     bool isDashing = false;
     bool canDash = true;
-    TrailRenderer trailRenderer;
 
     public Animator anim;
 
@@ -38,10 +37,17 @@ public class PlayerMovement : MonoBehaviour
 
     private Knockback kb;
 
+    private bool canSwapScene;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         kb = GetComponent<Knockback>();
+    }
+
+    private void Start()
+    {
+        canSwapScene = StaticData.canSwapScene;
     }
 
     void Update()
@@ -50,20 +56,15 @@ public class PlayerMovement : MonoBehaviour
         GetInputs();
         Animate();
         
-
         if (isDashing)
             return;
 
         if (kb != null && kb.isBeingKnockedBack)
             return;
-
+       
+        //Move player based in inputs
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
-
-        _rb.linearVelocity = _movement * _moveSpeed;   
-
-        if (InputManager.NextScenePressed)
-        {
-        }
+        _rb.linearVelocity = _movement * _moveSpeed;
     }
 
     public void Dash()
@@ -75,15 +76,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private IEnumerator DashCoroutine()
+    private IEnumerator DashCoroutine() // dash logic
     {
         canDash = false;
         isDashing = true;
-        //trailRenderer.emitting = true;
 
         SoundManager.instance.PlaySoundFXClip("Dash", transform, dashVolume);
+
         //Dash in the direction the player is currently moving or last moved, get direction from GetDirection()
-        _rb.linearVelocity = direction switch   //dasgh in the direction the player is facing
+        _rb.linearVelocity = direction switch
         {
             "Up" => new Vector2(0, dashSpeed),
             "Down" => new Vector2(0, -dashSpeed),
@@ -95,19 +96,19 @@ public class PlayerMovement : MonoBehaviour
             "DownRight" => new Vector2(dashSpeed / Mathf.Sqrt(2), -dashSpeed / Mathf.Sqrt(2)),
             _ => new Vector2(0, 0),
         };
-        yield return new WaitForSeconds(dashDuration);
+        yield return new WaitForSeconds(dashDuration); // sets movement for "dashduration" time
 
-        _rb.linearVelocity = new Vector2(0,0);// Stop movement after dash  
+
+        _rb.linearVelocity = new Vector2(0,0);  // Stop movement after dash, so not to carry momentum
 
         isDashing = false;
-        //trailRenderer.emitting = false;
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
 
 
-    public void GetInputs()
+    public void GetInputs() // get all inputs each frame
     {
         x = InputManager.Movement.x;
         y = InputManager.Movement.y;
@@ -133,13 +134,13 @@ public class PlayerMovement : MonoBehaviour
             playerAttack.Spear(direction);
         }
 
-        if (InputManager.NextScenePressed)
+        if (InputManager.NextScenePressed && canSwapScene)  // for game testing, canSwapScene should be false when done.
         {
             SceneController.instance.NextLevel();
         }
     }
 
-    private void Animate()
+    private void Animate() // set all animation variables
     {
         if (input.magnitude > 0.1f || input.magnitude < -0.1f)
         {

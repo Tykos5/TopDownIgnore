@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.Hierarchy;
 using UnityEngine;
 
-public class mobAttack : MonoBehaviour
+public class mobAttack : MonoBehaviour   // Handles attack logic for all mobs except zombie
 {
 
     GameObject player;
@@ -19,7 +19,7 @@ public class mobAttack : MonoBehaviour
 
     public float RockBossMeleeDMG = 2f;
     public float RockBossRangedCD = 5f;
-    private bool canRanged = false;
+    private bool rangedOnCooldown = false;
 
     public bool isAttacking = false;
     public bool isShooting = false;
@@ -46,8 +46,8 @@ public class mobAttack : MonoBehaviour
 
     public enum attackType
     {
-        Melee,
-        Ranged,
+        Melee,  //(reaper)
+        Ranged, //(reaper)
         RockBoss
     }
 
@@ -58,6 +58,7 @@ public class mobAttack : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
 
+        // set different variables to correct value based on enemytype
         if (attacktype == attackType.Melee)
         {
             meleeDamage = StaticData.meleeReaperDamage;
@@ -86,18 +87,17 @@ public class mobAttack : MonoBehaviour
 
         switch (attacktype)
         {
-            case attackType.Melee:
+            case attackType.Melee:      // if enemytype meleereaper, try to attack if within attackrange
                 {
                     if (currentDistance.magnitude <= attackRange && canAttack)
                     {
-
                         TryAttack();
                     }
                 }
                 break;
 
 
-            case attackType.Ranged:
+            case attackType.Ranged: // if enemytype rangedReaper, try to attack
                 {
                     if (canAttack)
                     {
@@ -106,45 +106,45 @@ public class mobAttack : MonoBehaviour
                 }
                 break;
 
-            case attackType.RockBoss:
+            case attackType.RockBoss:  // if rockBoss use ranged attack if cooldown is over
                 {
                     // Ranged takes priority regardless of melee state
-                    if (!canRanged && canAttack)
+                    if (!rangedOnCooldown && canAttack)
                     {
                         canAttack = false;
-                        canRanged = true;
-                        anim.SetTrigger("RangedAttack");
-                        StartCoroutine(RockBossRangedCDTimer());
+                        rangedOnCooldown = true;
+                        anim.SetTrigger("RangedAttack");  // animate
+                        StartCoroutine(RockBossRangedCDTimer());  // ranged attack cooldown 
                     }
-                    else if (currentDistance.magnitude <= attackRange && canAttack && canRanged)
+                    else if (currentDistance.magnitude <= attackRange && canAttack && rangedOnCooldown)  // if within meleerange and not in range attack animation
                     {
-                        canAttack = false; // add this back
-                        TryAttack();
+                        canAttack = false; 
+                        TryAttack();            // try to attack
                     }
                 }
                 break;
         }
     }
 
-    void TryAttack()
+    void TryAttack()    // set attack animation and start attack cooldown
     {
-        Debug.Log("Trying to attack");
-
         canAttack = false;
         anim.SetTrigger("Attack");
 
         StartCoroutine(AttackCD());
     }
 
-    private IEnumerator AttackCD()
+    private IEnumerator AttackCD() // attack cooldown, melee
     {
         //Debug.Log("Attack CD started");
         yield return new WaitForSeconds(attackCD);
         canAttack = true;
     }
 
-    private void MeleeAttack()
+    private void MeleeAttack()  // called from animation event
     {
+        // play attack sound based on enemytype
+
         if (attacktype == attackType.Melee)
         {
             SoundManager.instance.PlaySoundFXClip("ReaperMelee", transform, reaperMeleeVolume);
@@ -163,7 +163,7 @@ public class mobAttack : MonoBehaviour
         }
 
 
-        if (currentDistance.magnitude <= attackRange && canHit)
+        if (currentDistance.magnitude <= attackRange && canHit)   // deal damage and send direction for handling knockback if within attack range when attack goes of
         {
             direction = (player.transform.position - transform.position).normalized;
 
@@ -176,16 +176,16 @@ public class mobAttack : MonoBehaviour
         StartCoroutine(HitCD());
     }
 
-    private IEnumerator HitCD()
+    private IEnumerator HitCD() // iFrames for player
     {
         canHit = false;
         yield return new WaitForSeconds(hitCD);
         canHit = true;
     }
 
-    public void RangedAttack()
+    public void RangedAttack()  // projectile attack
     {
-        if (canAttack && attacktype == attackType.Ranged)
+        if (canAttack && attacktype == attackType.Ranged) // if ranged reaper, send one orb in the players direction. 
         {
             //sfx reaperOrb
             SoundManager.instance.PlaySoundFXClip("ReaperOrb", transform, reaperOrbVolume);
@@ -206,7 +206,7 @@ public class mobAttack : MonoBehaviour
         }
     }
 
-    public void RockBossRangedAttack()
+    public void RockBossRangedAttack()      //rockboss ranged attack, send one orb in each diagonal direction.
     {
         if (attacktype == attackType.RockBoss && canRange)
         {
@@ -237,19 +237,19 @@ public class mobAttack : MonoBehaviour
         } 
     }
 
-    private IEnumerator canRangeCD()
+    private IEnumerator canRangeCD()  // prevents multiple calls from one attack instance
     {
         yield return new WaitForSeconds(1);
         canRange = true;
     }
 
-    private IEnumerator RockBossRangedCDTimer()
+    private IEnumerator RockBossRangedCDTimer()  // handles time to fire again
     {
         yield return new WaitForSeconds(RockBossRangedCD);
-        canRanged = false; // signals ranged is ready to fire again
+        rangedOnCooldown = false; // signals ranged is ready to fire again
     }
 
-    public void OnRangedAnimComplete()
+    public void OnRangedAnimComplete() // called from animation event, prevents melee from going of while range animaion is ongoing
     {
         canAttack = true; // free to melee again while ranged is still on cooldown
     }

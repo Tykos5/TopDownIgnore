@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour // handles players health and hp UI
 {
 
     private Rigidbody2D rb;
@@ -18,8 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private float playerHitVolume = 0.5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Start()        
     {
         health = StaticData.playerHealth;
         rb = GetComponent<Rigidbody2D>();
@@ -32,17 +31,17 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetHealth((int)health); // syncs UI to actual health
     }
 
-    public void TakeDamage(float damage, Vector2 direction)
+    public void TakeDamage(float damage, Vector2 direction) // takedamage called from enemy scripts.
     {
         if (!canTakeDamage)
             return;
 
-        SoundManager.instance.PlaySoundFXClip("PlayerHit", transform, playerHitVolume);
+        SoundManager.instance.PlaySoundFXClip("PlayerHit", transform, playerHitVolume); // hit sfx
 
         health -= damage;
         Debug.Log("Player took damage: " + health);
 
-        healthBar.SetHealth((int)health);
+        healthBar.SetHealth((int)health); // sync UI to current health
 
         kb.ApplyKnockback(direction, rb);
 
@@ -52,10 +51,10 @@ public class PlayerHealth : MonoBehaviour
 
             Died();
         }
-        StartCoroutine(DamageIFrame());
+        StartCoroutine(DamageIFrame()); 
     }
 
-    private IEnumerator DamageIFrame()
+    private IEnumerator DamageIFrame() // damage iFrames
     {
         canTakeDamage = false;
         yield return new WaitForSeconds(damageCooldown);
@@ -72,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) // find the health bar for every new scene
     {
         healthBar = FindFirstObjectByType<HealthBar>();
         if (healthBar != null)

@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-public class ZombieAnimator : MonoBehaviour
+public class ZombieAnimator : MonoBehaviour  // handles zombies animation
 {
     Animator animator;
     EnemyAI enemyAI;
@@ -21,14 +21,14 @@ public class ZombieAnimator : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (enemyAI != null)
+        if (enemyAI != null)  // get data from enemyAI, zombies main script
         {
             dir = enemyAI.MoveDirection;
             idleDis = enemyAI.idleDistance;
 
             distanceToTarget = Vector2.Distance(enemyAI.transform.position, enemyAI.canChase ? (Vector3)enemyAI.target.position : (Vector3)enemyAI.startPos);
         }
-        else if (huntPlayer != null)
+        else if (huntPlayer != null) // get data from huntPlayer
         {
             Vector2 dir = huntPlayer.transform.position - transform.position;
             idleDis = huntPlayer.targetDistance;
@@ -41,16 +41,15 @@ public class ZombieAnimator : MonoBehaviour
 
         isMoving = distanceToTarget > idleDis;
 
+        // set animation variables
         animator.SetBool("isMoving", isMoving);
-
         animator.SetFloat("X", dir.x);
         animator.SetFloat("Y", dir.y);
 
     }
 
-    public void Attack()
+    public void Attack()  // start attack animation
     {
-        //Debug.Log("Zombie Attack Animation Triggered");
         animator.SetTrigger("Attack");
     }
 }

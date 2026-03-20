@@ -176,7 +176,7 @@ MonoBehaviour:
   kb: {fileID: 0}
   moveSpeed: 2
   targetDistance: 4
-  movementType: 2
+  movementType: 1
 --- !u!114 &1451768166208701121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   damageCooldown: 0.5
   canTakeDamage: 1
   reaperDeathVolume: 0.5
+  rockDeathVolume: 0.5
   Owner: {fileID: 9063348355169770000}
   onEnemyDeath:
     m_PersistentCalls:
@@ -212,7 +213,7 @@ MonoBehaviour:
         m_CallState: 2
   scoreManager: {fileID: 0}
   sceneController: {fileID: 0}
-  enemyType: 2
+  enemyType: 1
 --- !u!114 &96840334555310586
 MonoBehaviour:
   m_ObjectHideFlags: 0

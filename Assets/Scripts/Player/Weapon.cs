@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour // handles player melee collision
 {
     public float damage = 1;
 
@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
         attackOrigin = GetComponentInParent<Rigidbody2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) // on collision deal damage to correct mob and deal damage
     {
         enemyHealth health = collision.GetComponent<enemyHealth>();
 

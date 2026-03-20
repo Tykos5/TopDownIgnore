@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class TriggerZombie : MonoBehaviour
+public class TriggerZombie : MonoBehaviour // handles zombies active chase boundary
 {
     public EnemyAI[] zombies;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) // start chasing when entering zone
     {
         if (collision.CompareTag("Player"))
         {
@@ -13,7 +13,7 @@ public class TriggerZombie : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)  // stop chasing when exiting zone
     {
         if (collision.CompareTag("Player"))
         {

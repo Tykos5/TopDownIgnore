@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour    //handles attack logic for ZOMBIE   
 {
     GameObject player;
-
-    //ZombieAnimator zombieAnim;
-    //HuntPlayer huntPlayer;
     PlayerHealth playerHealth;
     private Animator anim;
 
@@ -31,62 +28,52 @@ public class EnemyAttack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            playerHealth = player.GetComponent<PlayerHealth>();
+            playerHealth = player.GetComponent<PlayerHealth>(); // Find playerHealth script
         }
     }
-    public void SetTarget(Transform newTarget)
+    public void SetTarget(Transform newTarget) // set the target
     {
         target = newTarget;
     }
 
-    public void TryAttack()
+    public void TryAttack() // when in attack range to to attack
     {
-        //Debug.Log("Trying to attack");
-        if (target == null)
+        if (target == null)     
         {
             Debug.Log("No target");
             return;
         }
-        else if (!canAttack)
+        else if (!canAttack)  // if attack on cooldown cancel attack
         {
-            //Debug.Log("Cannot attack yet, on cooldown");
             return;
         }
 
-        //Debug.Log("Attack reqs met");
-        StartCoroutine(AttackCoroutine());
-        SoundManager.instance.PlaySoundFXClip("ZombieMelee", transform, meleeVolume);
+        StartCoroutine(AttackCoroutine()); // start attacking
+        SoundManager.instance.PlaySoundFXClip("ZombieMelee", transform, meleeVolume); // play attack sound
 
     }
 
     private IEnumerator AttackCoroutine()
     {
-        canAttack = false;
+        canAttack = false;  //handles attackCooldown
 
-        anim.SetTrigger("Attack");
-
-        //zombieAnim.Attack();
-
-        //Debug.Log("Enemy attacks!");
+        anim.SetTrigger("Attack"); // set animation
 
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
-    public void Damage()
+    public void Damage() // function to damage the player, called from animation event.
     {
-        //Debug.Log("Damage function started");
         float distance = Vector2.Distance(transform.position, target.position);
         direction = (target.position - transform.position).normalized;
 
-        if (distance <= attackRange)
+        if (distance <= attackRange)        //if still within attackrange
         {
-            //Debug.Log("Target in range to damage");
 
             if (playerHealth != null)
             {
-                //Debug.Log("Dealing damage to player");
-                playerHealth.TakeDamage(attackDamage, direction);
+                playerHealth.TakeDamage(attackDamage, direction);  // damage player if all reqs are met
             }
             else
                 Debug.LogWarning("PlayerHealth component not found on player.");

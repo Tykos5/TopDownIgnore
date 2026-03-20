@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SpawnEnemy : MonoBehaviour
+public class SpawnEnemy : MonoBehaviour // handles the spawning of enemies for each level based on difficulty
 {
     public enum EnemyType
     { 
@@ -77,10 +77,10 @@ public class SpawnEnemy : MonoBehaviour
             }
         }
 
-        // Zombie spawn L2
+        // Spawn Zombies for level 2
         if (currentLevel == level.Level2 && enemyType == EnemyType.Zombie)
         {
-            switch (difficulty)
+            switch (difficulty)  // based on difficulty spawn different amounts of enemies
             {
                 case 0: // Easy
                     for (int i = 0; i < 2; i++)
@@ -124,10 +124,10 @@ public class SpawnEnemy : MonoBehaviour
             }
         }
 
-        // Reaper spawn L4
+        // Spawn Reaoers for level 4
         if (currentLevel == level.Level4 && enemyType == EnemyType.Reaper)
         {
-            if (difficulty >= 2) // Spawn reapers for Hard difficulty and above
+            if (difficulty >= 2) // Spawn reapers only for Hard difficulty and above
             {
                 foreach (GameObject rangedReaper in rangedReapers)
                 {
@@ -142,29 +142,29 @@ public class SpawnEnemy : MonoBehaviour
         {
             doorSpawn[2].SetActive(false);
         }
-
+        // Disable the pointer for level 2
         if (currentLevel == level.Level2 && enemyType == EnemyType.Zombie)
         {
             doorSpawn[2].SetActive(false);
         }
-
+        // Dissable the tutorialtext for level 2
         if (currentLevel == level.Level2)
         {
-            removeText.SetActive(false); // Dissable the tutorialtext for level 2
+            removeText.SetActive(false); 
         }
     }
 
     private bool activated = false; // To ensure enemies are spawned only once
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)     // When player gets to a certain point of the map spawn in enemies entities
     {
         //spawn the reapers on trigger with the player
         if (collision.CompareTag("Player") && !activated)
         {
             if (removeText != null && (currentLevel == level.Level1 || currentLevel == level.Level2))
             {
-                removeText.SetActive(false); // Remove the text when the player enters the trigger
+                removeText.SetActive(false); // Remove the tutorial text when the player enters the trigger
             }
 
             if (currentLevel == level.Level2)
@@ -172,8 +172,10 @@ public class SpawnEnemy : MonoBehaviour
                 doorSpawn[2].SetActive(false); // Disable the pointer if not already disabled
             }
 
-            activated = true;
-            if (enemyType == EnemyType.Reaper)
+            activated = true; // to only spawn enemies once 
+
+            // Spawn reapers for level 2
+            if (enemyType == EnemyType.Reaper && currentLevel == level.Level2)
             {
                 foreach (GameObject meleeReaper in meleeReapers)
                 {
@@ -187,12 +189,13 @@ public class SpawnEnemy : MonoBehaviour
                 }
             }
 
+            //Spawn the zombies for their respective levels 
             else if (enemyType == EnemyType.Zombie)
             {
                 // Level 1 spawning mechanics
                 if (currentLevel == level.Level1)
                 {
-
+                    // spawn different amounts based on diffiulty
                     switch (difficulty)
                     {
                         case 0: // Easy
@@ -240,16 +243,16 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    public void zombieKilled()
+    public void zombieKilled() // track how many zombies have been killed
     {
         zombiesKilled++;
 
-        if (zombiesKilled >= zombiesSpawned)
+        if (zombiesKilled >= zombiesSpawned) // when all spawned zombies are killed
         {
             // All zombies have been killed
             Debug.Log("All zombies have been killed!");
 
-            if (currentLevel == level.Level1)
+            if (currentLevel == level.Level1) // spawn gate for going to next level alont with a ponter for it
             {
                 doorSpawn[0].SetActive(true); // Enable the door
                 doorSpawn[1].SetActive(false); // Disable the wall
@@ -262,11 +265,11 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    public void reaperKilled()
+    public void reaperKilled() // track how many reapers are killed
     {
         reapersKilled++;
 
-        if (reapersKilled == 2 && currentLevel == level.Level2 && enemyType == EnemyType.Reaper)
+        if (reapersKilled == 2 && currentLevel == level.Level2 && enemyType == EnemyType.Reaper) // when all reapers are killed, spawn gate to next level and pointer
         {
             doorSpawn[0].SetActive(true); // Enable the door
             doorSpawn[1].SetActive(false); // Disable the wall
@@ -277,8 +280,8 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    public void spearPickedUp()
+    public void spearPickedUp() 
     {
-        removeText.SetActive(true); // show text when spear is picked up
+        removeText.SetActive(true); // show tutorial text when spear is picked up
     }
 }

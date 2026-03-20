@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StaticData
 {
+    public static bool canSwapScene = true;
+
     public static int difficulty = 0; // Default difficulty level
     public static float playerHealth = 10; // Default player max health
     public static bool canSpear = false; // Whether the player can use the spear attack

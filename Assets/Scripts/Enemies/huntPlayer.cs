@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HuntPlayer : MonoBehaviour
+public class HuntPlayer : MonoBehaviour // ´logic for mobs chasing players
 {
     public GameObject player;
     public Knockback kb;
@@ -16,7 +16,6 @@ public class HuntPlayer : MonoBehaviour
     public enum  MovementType
     {
         Chase,      // Move toward player
-        Flee,       // Move away from player
         KeepRange   // Stay at a certain distance
     }
 
@@ -29,7 +28,7 @@ public class HuntPlayer : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate()  // Find distance to player and and calculate wanted target position
     {
         if (player == null)
             return;
@@ -43,7 +42,7 @@ public class HuntPlayer : MonoBehaviour
 
         switch (movementType)
         {
-            case MovementType.Chase:
+            case MovementType.Chase:                // if chase move towards player constantly
                 if (distanceToPlayer > targetDistance)
                 {
                     moveDirection = directionToPlayer.normalized;
@@ -51,12 +50,7 @@ public class HuntPlayer : MonoBehaviour
                 }
                 break;
 
-            case MovementType.Flee:
-                if (distanceToPlayer < targetDistance)
-                    moveDirection = -directionToPlayer.normalized;
-                break;
-
-            case MovementType.KeepRange:
+            case MovementType.KeepRange:            // if keepRange move towards keeping  "targetdistance" away from player
                 if (distanceToPlayer > targetDistance)
                     moveDirection = directionToPlayer.normalized;
                 else if (distanceToPlayer < targetDistance)
@@ -66,11 +60,11 @@ public class HuntPlayer : MonoBehaviour
         }
 
         if (!kb.isBeingKnockedBack)
-            transform.position += (Vector3)(moveDirection * moveSpeed * Time.fixedDeltaTime);
+            transform.position += (Vector3)(moveDirection * moveSpeed * Time.fixedDeltaTime); // Move entity if not being knocked back
 
         
     }
-    void animate(Vector2 vec)
+    void animate(Vector2 vec)  // set the animation variables for correct animation direction.
     {
         // Update animation parameters
         anim.SetFloat("X", vec.x);

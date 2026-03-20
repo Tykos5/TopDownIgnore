@@ -4,7 +4,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Dynamic;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour  // handles players attack
 {
 
     private PlayerMovement player;
@@ -44,10 +44,11 @@ public class PlayerAttack : MonoBehaviour
         canSpear = StaticData.canSpear;
     }
 
-    public void Attack(string direction)
+    public void Attack(string direction)  // called from playerMovement script
     {
-        if (canAttack)
+        if (canAttack) // if attack cooldown is over
         {
+            // set x and y value from direction to then send to animation
             x = direction switch
             {
                 "Up" => 0,
@@ -74,9 +75,9 @@ public class PlayerAttack : MonoBehaviour
                 _ => 1,
             };
 
-
             anim.SetFloat("AttackX", x);
             anim.SetFloat("AttackY", y);
+
 
             //rotate attack hitbox based on direction
             if (y == -1) // down
@@ -91,24 +92,26 @@ public class PlayerAttack : MonoBehaviour
             Vector2 dir = new Vector2(Mathf.Round(x), Mathf.Round(y));
             Melee.transform.localPosition = dir * attackOffset;
 
-            StartCoroutine(AttackCoroutine());
-            StartCoroutine(MeleeActivationCoroutine());
+            StartCoroutine(AttackCoroutine()); // melee attack cooldown
+            StartCoroutine(MeleeActivationCoroutine()); // melee attack duration
         }
     }
 
-    public void Spear(string direction)
+    public void Spear(string direction) // spear attack, called from playerMovement
     {
-        if (canSpear)
+        if (canSpear) // spear cooldown
         {
-            SoundManager.instance.PlaySoundFXClip("PlayerSpear", transform, spearVolume);
+            SoundManager.instance.PlaySoundFXClip("PlayerSpear", transform, spearVolume); // spear thorowing sound
 
             dir = GetDirectionVector(direction).normalized;
 
             canSpear = false;
             Debug.Log("Spear Attack Triggered");
+
+            //initialize spear object
             GameObject intSpear = Instantiate(SpearPrefab, Aim.position, Quaternion.identity);
 
-            //Rotate spear
+            //Rotate spear based on direction
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             intSpear.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
 
@@ -119,31 +122,32 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private IEnumerator SpearCoroutine()
+    private IEnumerator SpearCoroutine() // spear cooldown 
     {
         yield return new WaitForSeconds(SpearCooldown);
         canSpear = true;
     }
 
-    private IEnumerator AttackCoroutine()
+    private IEnumerator AttackCoroutine() // melee cooldown
     {
         canAttack = false;
+
         //Play attack animation based on direction
         anim.SetTrigger("Attack");
 
-        SoundManager.instance.PlaySoundFXClip("ReaperMelee", transform, meleeVolume);
+        SoundManager.instance.PlaySoundFXClip("PlayerMelee", transform, meleeVolume); // melee sfx  
 
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    private IEnumerator MeleeActivationCoroutine()
+    private IEnumerator MeleeActivationCoroutine() // melee duration handler
     {
         Melee.SetActive(true);
         yield return new WaitForSeconds(attackDuration);
         Melee.SetActive(false);
     }
 
-    private Vector2 GetDirectionVector(string direction)
+    private Vector2 GetDirectionVector(string direction) // convert from string to vector
     {
         return direction switch
         {

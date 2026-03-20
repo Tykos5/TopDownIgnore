@@ -573,13 +573,14 @@ MonoBehaviour:
   maxHealth: 0
   damageCooldown: 0.5
   canTakeDamage: 1
+  reaperDeathVolume: 0.5
   Owner: {fileID: 390858796}
   onEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
   scoreManager: {fileID: 629036227}
   sceneController: {fileID: 0}
-  enemyType: 3
+  enemyType: 2
 --- !u!1 &505365866
 GameObject:
   m_ObjectHideFlags: 0
