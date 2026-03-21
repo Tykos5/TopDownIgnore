@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour       //Handles the sound 
 {
     public static SoundManager instance;
 
@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Awake()    //Dont destroy object
     {
         if (instance == null)
         {
@@ -51,7 +51,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySoundFXClip(string audioclipString, Transform spawnTransform, float volume)
+    public void PlaySoundFXClip(string audioclipString, Transform spawnTransform, float volume) //Player the correct sfx depenting on the inputed string
     {
         audioclip = audioclipString switch
         {

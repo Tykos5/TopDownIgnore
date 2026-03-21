@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DontDestroy : MonoBehaviour
+public class DontDestroy : MonoBehaviour    //sript to not destroy object when swapping scene
 {
     private void Awake()
     {

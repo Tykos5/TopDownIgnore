@@ -83,6 +83,8 @@ public class PlayerHealth : MonoBehaviour // handles players health and hp UI
         // save score to static data before loading death scene
         ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
 
+        StaticData.score = scoreManager.score;
+
         // Switch to DeathScene
         SceneManager.LoadScene("DeathScene");
     }

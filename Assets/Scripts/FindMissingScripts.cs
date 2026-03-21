@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-public class FindMissingScripts : EditorWindow
+public class FindMissingScripts : EditorWindow  //script to find missing scripts on gameobjects
 {
     [MenuItem("Tools/Find Missing Scripts")]
     public static void FindMissing()

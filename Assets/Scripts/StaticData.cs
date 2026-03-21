@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StaticData
+public class StaticData     // Script to save all variables between scenes
 {
     public static bool canSwapScene = true;
 

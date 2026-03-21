@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour     //handles orbs and spear
 {
     public float damage = 1;
 
@@ -29,6 +29,7 @@ public class Projectile : MonoBehaviour
         attackOrigin = GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
 
+        // Set damage to correct value
         if (projectiletype == projectileType.reaperOrb)
         {
             damage = StaticData.rangedReaperDamage;
@@ -61,7 +62,7 @@ public class Projectile : MonoBehaviour
         EnemyAI Health = collision.GetComponent<EnemyAI>();
         enemyHealth hp = collision.GetComponent<enemyHealth>();
 
-        switch (projectiletype)
+        switch (projectiletype) // spear collision logic
         {
             case projectileType.Spear:
                 {
@@ -98,7 +99,7 @@ public class Projectile : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)      // handles logic for reaper and rockBoss orbs
     {
         if (projectiletype != projectileType.reaperOrb && projectiletype != projectileType.rockBossOrb)
             return;
@@ -126,6 +127,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
+        // bounce if colliding with wall
         if (collision.collider.CompareTag("Wall"))
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();

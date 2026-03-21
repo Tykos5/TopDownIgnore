@@ -3,14 +3,11 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine.Events;
 
-public class TriggerTile : MonoBehaviour
+public class TriggerTile : MonoBehaviour    // Script to enable/disable gameobjects in all scenes
 {
 
     public GameObject nextCoffin;
     public float spawnDelay = 0.2f;
-
-    //private bool isActive = true;
-
 
     public GameObject tilemapObject;
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour   //Handles the score text 
 {
     public TMP_Text ScoreText;
 
@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
         score = StaticData.score;
     }
 
-    public void FixedUpdate()
+    public void FixedUpdate() //Updates the score text
     {
         ScoreText.text = "Score: " + score;
     }

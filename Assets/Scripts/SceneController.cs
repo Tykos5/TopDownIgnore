@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class SceneController : MonoBehaviour
+public class SceneController : MonoBehaviour        //handles the logic for micellenious functions
 {
     public static SceneController instance;
 
@@ -14,7 +14,8 @@ public class SceneController : MonoBehaviour
     [SerializeField] private float deathVolume = 0.5f;
 
     private void Awake()
-    {
+    {   
+        // to not destroy the object when swapping scenes
         if (instance == null)
         {
             instance = this;
@@ -36,7 +37,7 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    public void NextLevel()
+    public void NextLevel() // Load all variables needed when loading a new scene
     {
         playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
         StaticData.playerHealth = playerHealth.health;  //save player health to static data before loading next scene
@@ -47,7 +48,7 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName) // load specific scene
     {
         playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
         StaticData.playerHealth =  playerHealth.health;
@@ -63,7 +64,7 @@ public class SceneController : MonoBehaviour
         StartCoroutine(VictoryCoroutine());
     }
 
-    private IEnumerator VictoryCoroutine()
+    private IEnumerator VictoryCoroutine()  //Handles victory sound and scece swapping
     {
         playerHealth = FindFirstObjectByType<PlayerHealth>(); // re-find in current scene
         scoreManager = FindFirstObjectByType<ScoreManager>(); // re-find in current scene

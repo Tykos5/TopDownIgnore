@@ -17,14 +17,14 @@ public class CoffinManager : MonoBehaviour  // Handles the swapping of coffin sp
         }
     }
 
-    public void NextForm()
+    public void NextForm() //change shape when hit
     {
         if (isChanging) return;
 
         StartCoroutine(ChangeForm());
     }
 
-    IEnumerator ChangeForm()
+    IEnumerator ChangeForm()    //handles the swap with a small time delay
     {
         isChanging = true;
 

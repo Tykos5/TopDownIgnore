@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Knockback : MonoBehaviour
+public class Knockback : MonoBehaviour      //Apply the knockback
 {
     public bool isBeingKnockedBack { get; private set; }
 

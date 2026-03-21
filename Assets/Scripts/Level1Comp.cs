@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Level1Comp : MonoBehaviour
+public class Level1Comp : MonoBehaviour     // Swap to next level when triggered
 {
    private void OnTriggerEnter2D(Collider2D collision)
     {

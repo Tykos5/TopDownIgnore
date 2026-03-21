@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class spearPickUp : MonoBehaviour
+public class spearPickUp : MonoBehaviour    // logic to pick up the spear ability
 {
     private PlayerAttack playerAttack;
 

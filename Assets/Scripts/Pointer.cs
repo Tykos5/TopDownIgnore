@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Pointer : MonoBehaviour
+public class Pointer : MonoBehaviour    //handles the guide arrow
 {
     public Transform targetPosition;
-    public Transform playerTransform; // Drag your player in via Inspector
+    public Transform playerTransform;
     public float radius = 100f; // Distance from player in screen pixels
 
     private RectTransform pointerRectTransform;
@@ -42,7 +42,7 @@ public class Pointer : MonoBehaviour
         pointerRectTransform.anchoredPosition = playerCanvasPos + dir * radius;
     }
 
-    public void SetTarget(Transform newTarget)
+    public void SetTarget(Transform newTarget) // used to swap targets if needed
     {
         targetPosition = newTarget;
     }
