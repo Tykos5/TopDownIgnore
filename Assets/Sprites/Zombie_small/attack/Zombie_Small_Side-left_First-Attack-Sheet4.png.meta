@@ -109,11 +109,11 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 11
+        width: 14
         height: 14
-      alignment: 0
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -131,9 +131,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_1
       rect:
         serializedVersion: 2
-        x: 11
+        x: 17
         y: 0
-        width: 11
+        width: 14
         height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -153,9 +153,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_2
       rect:
         serializedVersion: 2
-        x: 22
+        x: 31
         y: 0
-        width: 11
+        width: 14
         height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -175,9 +175,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_3
       rect:
         serializedVersion: 2
-        x: 33
+        x: 47
         y: 0
-        width: 11
+        width: 14
         height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

@@ -6,6 +6,13 @@ TagManager:
   tags:
   - FollowZone
   - ZombieTrigger
+  - Zombie_small
+  - PlayerAttack
+  - Enemy
+  - Nextlevel
+  - Wall
+  - Reaper
+  - RockBoss
   layers:
   - Default
   - TransparentFX
@@ -14,9 +21,9 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
-  - 
+  - Enemy
+  - Hitbox
+  - EnemyProjectile
   - 
   - 
   - 
@@ -48,6 +55,15 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 979901983
+    locked: 0
+  - name: 3
+    uniqueID: 3069500679
+    locked: 0
+  - name: 4
+    uniqueID: 1051967839
+    locked: 0
+  - name: 5
+    uniqueID: 1575173503
     locked: 0
   m_RenderingLayers:
   - Default
